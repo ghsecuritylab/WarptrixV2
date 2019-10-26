@@ -1,0 +1,3336 @@
+ARM GAS  /tmp/ccNYL36S.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"stm32f7xx_hal_dma_ex.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.DMA_MultiBufferSetConfig,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv5-sp-d16
+  25              	DMA_MultiBufferSetConfig:
+  26              	.LVL0:
+  27              	.LFB141:
+  28              		.file 1 "Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c"
+   1:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+   2:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   ******************************************************************************
+   3:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @file    stm32f7xx_hal_dma_ex.c
+   4:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @author  MCD Application Team
+   5:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @brief   DMA Extension HAL module driver
+   6:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *         This file provides firmware functions to manage the following 
+   7:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *         functionalities of the DMA Extension peripheral:
+   8:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *           + Extended features functions
+   9:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *
+  10:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   @verbatim
+  11:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   ==============================================================================
+  12:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****                         ##### How to use this driver #####
+  13:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   ==============================================================================
+  14:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   [..]
+  15:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   The DMA Extension HAL driver can be used as follows:
+  16:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****    (+) Start a multi buffer transfer using the HAL_DMA_MultiBufferStart() function
+  17:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****        for polling mode or HAL_DMA_MultiBufferStart_IT() for interrupt mode.
+  18:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  19:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****      -@-  In Memory-to-Memory transfer mode, Multi (Double) Buffer mode is not allowed.
+  20:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****      -@-  When Multi (Double) Buffer mode is enabled, the transfer is circular by default.
+  21:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****      -@-  In Multi (Double) buffer mode, it is possible to update the base address for 
+  22:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****           the AHB memory port on the fly (DMA_SxM0AR or DMA_SxM1AR) when the stream is enabled.
+  23:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+  24:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   @endverbatim
+  25:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   ******************************************************************************
+  26:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @attention
+  27:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *
+  28:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  29:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *
+  30:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * Redistribution and use in source and binary forms, with or without modification,
+ARM GAS  /tmp/ccNYL36S.s 			page 2
+
+
+  31:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * are permitted provided that the following conditions are met:
+  32:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *   1. Redistributions of source code must retain the above copyright notice,
+  33:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *      this list of conditions and the following disclaimer.
+  34:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *   2. Redistributions in binary form must reproduce the above copyright notice,
+  35:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *      this list of conditions and the following disclaimer in the documentation
+  36:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *      and/or other materials provided with the distribution.
+  37:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  38:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *      may be used to endorse or promote products derived from this software
+  39:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *      without specific prior written permission.
+  40:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *
+  41:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  42:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  43:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  44:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  45:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  46:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  47:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  48:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  49:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  50:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  51:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *
+  52:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   ******************************************************************************
+  53:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+  54:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  55:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /* Includes ------------------------------------------------------------------*/
+  56:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** #include "stm32f7xx_hal.h"
+  57:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  58:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /** @addtogroup STM32F7xx_HAL_Driver
+  59:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @{
+  60:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+  61:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  62:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /** @defgroup DMAEx DMAEx
+  63:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @brief DMA Extended HAL module driver
+  64:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @{
+  65:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+  66:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  67:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** #ifdef HAL_DMA_MODULE_ENABLED
+  68:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  69:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /* Private types -------------------------------------------------------------*/
+  70:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /* Private variables ---------------------------------------------------------*/
+  71:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /* Private Constants ---------------------------------------------------------*/
+  72:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /* Private macros ------------------------------------------------------------*/
+  73:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /* Private functions ---------------------------------------------------------*/
+  74:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /** @addtogroup DMAEx_Private_Functions
+  75:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @{
+  76:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+  77:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  78:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** static void DMA_MultiBufferSetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddr
+  79:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  80:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+  81:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @}
+  82:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+  83:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  84:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /* Exported functions ---------------------------------------------------------*/
+  85:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  86:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /** @addtogroup DMAEx_Exported_Functions
+  87:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @{
+ARM GAS  /tmp/ccNYL36S.s 			page 3
+
+
+  88:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+  89:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  90:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+  91:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /** @addtogroup DMAEx_Exported_Functions_Group1
+  92:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *
+  93:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** @verbatim
+  94:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****  ===============================================================================
+  95:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****                 #####  Extended features functions  #####
+  96:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****  ===============================================================================  
+  97:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     [..]  This section provides functions allowing to:
+  98:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       (+) Configure the source, destination address and data length and 
+  99:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****           Start MultiBuffer DMA transfer
+ 100:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       (+) Configure the source, destination address and data length and 
+ 101:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****           Start MultiBuffer DMA transfer with interrupt
+ 102:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       (+) Change on the fly the memory0 or memory1 address.
+ 103:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 104:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** @endverbatim
+ 105:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @{
+ 106:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 107:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 108:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 109:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+ 110:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @brief  Starts the multi_buffer DMA Transfer.
+ 111:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
+ 112:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *                     the configuration information for the specified DMA Stream.  
+ 113:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  SrcAddress The source memory Buffer address
+ 114:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  DstAddress The destination memory Buffer address
+ 115:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  SecondMemAddress The second memory Buffer address in case of multi buffer Transfer  
+ 116:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  DataLength The length of data to be transferred from source to destination
+ 117:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @retval HAL status
+ 118:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 119:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t
+ 120:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** {
+ 121:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   HAL_StatusTypeDef status = HAL_OK;
+ 122:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 123:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Check the parameters */
+ 124:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
+ 125:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 126:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Memory-to-memory transfer not supported in double buffering mode */
+ 127:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   if (hdma->Init.Direction == DMA_MEMORY_TO_MEMORY)
+ 128:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 129:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->ErrorCode = HAL_DMA_ERROR_NOT_SUPPORTED;
+ 130:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     status = HAL_ERROR;
+ 131:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 132:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   else
+ 133:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 134:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Process Locked */
+ 135:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_LOCK(hdma);
+ 136:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 137:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     if(HAL_DMA_STATE_READY == hdma->State)
+ 138:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 139:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       /* Change DMA peripheral state */
+ 140:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       hdma->State = HAL_DMA_STATE_BUSY; 
+ 141:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 142:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       /* Enable the double buffer mode */
+ 143:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
+ 144:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ARM GAS  /tmp/ccNYL36S.s 			page 4
+
+
+ 145:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       /* Configure DMA Stream destination address */
+ 146:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       hdma->Instance->M1AR = SecondMemAddress;
+ 147:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 148:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       /* Configure the source, destination address and the data length */
+ 149:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength);
+ 150:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 151:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       /* Enable the peripheral */
+ 152:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       __HAL_DMA_ENABLE(hdma);
+ 153:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 154:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     else
+ 155:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 156:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       /* Return error status */
+ 157:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       status = HAL_BUSY;
+ 158:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 159:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 160:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   return status;
+ 161:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** }
+ 162:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 163:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+ 164:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @brief  Starts the multi_buffer DMA Transfer with interrupt enabled.
+ 165:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
+ 166:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *                     the configuration information for the specified DMA Stream.  
+ 167:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  SrcAddress The source memory Buffer address
+ 168:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  DstAddress The destination memory Buffer address
+ 169:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  SecondMemAddress The second memory Buffer address in case of multi buffer Transfer  
+ 170:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  DataLength The length of data to be transferred from source to destination
+ 171:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @retval HAL status
+ 172:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 173:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** HAL_StatusTypeDef HAL_DMAEx_MultiBufferStart_IT(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint3
+ 174:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** {
+ 175:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   HAL_StatusTypeDef status = HAL_OK;
+ 176:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 177:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Check the parameters */
+ 178:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   assert_param(IS_DMA_BUFFER_SIZE(DataLength));
+ 179:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 180:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Memory-to-memory transfer not supported in double buffering mode */
+ 181:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   if (hdma->Init.Direction == DMA_MEMORY_TO_MEMORY)
+ 182:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 183:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->ErrorCode = HAL_DMA_ERROR_NOT_SUPPORTED;
+ 184:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     return HAL_ERROR;
+ 185:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 186:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 187:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Process locked */
+ 188:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   __HAL_LOCK(hdma);
+ 189:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 190:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   if(HAL_DMA_STATE_READY == hdma->State)
+ 191:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 192:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Change DMA peripheral state */
+ 193:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->State = HAL_DMA_STATE_BUSY;
+ 194:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 195:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Initialize the error code */
+ 196:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->ErrorCode = HAL_DMA_ERROR_NONE;
+ 197:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 198:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Enable the Double buffer mode */
+ 199:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->CR |= (uint32_t)DMA_SxCR_DBM;
+ 200:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 201:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Configure DMA Stream destination address */
+ARM GAS  /tmp/ccNYL36S.s 			page 5
+
+
+ 202:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->M1AR = SecondMemAddress;
+ 203:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 204:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Configure the source, destination address and the data length */
+ 205:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     DMA_MultiBufferSetConfig(hdma, SrcAddress, DstAddress, DataLength); 
+ 206:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 207:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Clear all flags */
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TC_FLAG_INDEX(hdma));
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 213:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 214:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Enable Common interrupts*/
+ 215:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->CR  |= DMA_IT_TC | DMA_IT_TE | DMA_IT_DME;
+ 216:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->FCR |= DMA_IT_FE;
+ 217:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 218:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     if((hdma->XferHalfCpltCallback != NULL) || (hdma->XferM1HalfCpltCallback != NULL))
+ 219:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 220:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       hdma->Instance->CR  |= DMA_IT_HT;
+ 221:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 222:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 223:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Enable the peripheral */
+ 224:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_ENABLE(hdma); 
+ 225:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 226:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   else
+ 227:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {     
+ 228:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Process unlocked */
+ 229:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_UNLOCK(hdma);	  
+ 230:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 231:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Return error status */
+ 232:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     status = HAL_BUSY;
+ 233:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }  
+ 234:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   return status; 
+ 235:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** }
+ 236:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 237:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+ 238:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @brief  Change the memory0 or memory1 address on the fly.
+ 239:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
+ 240:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *                     the configuration information for the specified DMA Stream.  
+ 241:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  Address    The new address
+ 242:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  memory     the memory to be changed, This parameter can be one of 
+ 243:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *                     the following values:
+ 244:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *                      MEMORY0 /
+ 245:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *                      MEMORY1
+ 246:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @note   The MEMORY0 address can be changed only when the current transfer use
+ 247:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *         MEMORY1 and the MEMORY1 address can be changed only when the current 
+ 248:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *         transfer use MEMORY0.
+ 249:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @retval HAL status
+ 250:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 251:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** HAL_StatusTypeDef HAL_DMAEx_ChangeMemory(DMA_HandleTypeDef *hdma, uint32_t Address, HAL_DMA_MemoryT
+ 252:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** {
+ 253:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   if(memory == MEMORY0)
+ 254:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 255:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* change the memory0 address */
+ 256:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->M0AR = Address;
+ 257:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 258:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   else
+ARM GAS  /tmp/ccNYL36S.s 			page 6
+
+
+ 259:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 260:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* change the memory1 address */
+ 261:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->M1AR = Address;
+ 262:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 263:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 264:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   return HAL_OK;
+ 265:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** }
+ 266:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 267:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+ 268:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @}
+ 269:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 270:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 271:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+ 272:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @}
+ 273:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 274:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 275:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /** @addtogroup DMAEx_Private_Functions
+ 276:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @{
+ 277:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 278:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 279:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** /**
+ 280:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @brief  Set the DMA Transfer parameter.
+ 281:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  hdma       pointer to a DMA_HandleTypeDef structure that contains
+ 282:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   *                     the configuration information for the specified DMA Stream.  
+ 283:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  SrcAddress The source memory Buffer address
+ 284:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  DstAddress The destination memory Buffer address
+ 285:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @param  DataLength The length of data to be transferred from source to destination
+ 286:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   * @retval HAL status
+ 287:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   */
+ 288:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** static void DMA_MultiBufferSetConfig(DMA_HandleTypeDef *hdma, uint32_t SrcAddress, uint32_t DstAddr
+ 289:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** {
+  29              		.loc 1 289 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34              		.loc 1 289 1 is_stmt 0 view .LVU1
+  35 0000 10B4     		push	{r4}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 4
+  38              		.cfi_offset 4, -4
+ 290:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Configure DMA Stream data length */
+ 291:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   hdma->Instance->NDTR = DataLength;
+  39              		.loc 1 291 3 is_stmt 1 view .LVU2
+  40              		.loc 1 291 7 is_stmt 0 view .LVU3
+  41 0002 0468     		ldr	r4, [r0]
+  42              		.loc 1 291 24 view .LVU4
+  43 0004 6360     		str	r3, [r4, #4]
+ 292:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 293:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Peripheral to Memory */
+ 294:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   if((hdma->Init.Direction) == DMA_MEMORY_TO_PERIPH)
+  44              		.loc 1 294 3 is_stmt 1 view .LVU5
+  45              		.loc 1 294 17 is_stmt 0 view .LVU6
+  46 0006 8368     		ldr	r3, [r0, #8]
+  47              	.LVL1:
+  48              		.loc 1 294 5 view .LVU7
+  49 0008 402B     		cmp	r3, #64
+ARM GAS  /tmp/ccNYL36S.s 			page 7
+
+
+  50 000a 06D0     		beq	.L5
+ 295:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 296:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Configure DMA Stream destination address */
+ 297:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->PAR = DstAddress;
+ 298:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 299:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Configure DMA Stream source address */
+ 300:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->M0AR = SrcAddress;
+ 301:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 302:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   /* Memory to Peripheral */
+ 303:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   else
+ 304:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 305:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Configure DMA Stream source address */
+ 306:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->PAR = SrcAddress;
+  51              		.loc 1 306 5 is_stmt 1 view .LVU8
+  52              		.loc 1 306 9 is_stmt 0 view .LVU9
+  53 000c 0368     		ldr	r3, [r0]
+  54              		.loc 1 306 25 view .LVU10
+  55 000e 9960     		str	r1, [r3, #8]
+  56              	.LVL2:
+ 307:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 308:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     /* Configure DMA Stream destination address */
+ 309:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->M0AR = DstAddress;
+  57              		.loc 1 309 5 is_stmt 1 view .LVU11
+  58              		.loc 1 309 9 is_stmt 0 view .LVU12
+  59 0010 0368     		ldr	r3, [r0]
+  60              		.loc 1 309 26 view .LVU13
+  61 0012 DA60     		str	r2, [r3, #12]
+  62              	.L1:
+ 310:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 311:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** }
+  63              		.loc 1 311 1 view .LVU14
+  64 0014 5DF8044B 		ldr	r4, [sp], #4
+  65              	.LCFI1:
+  66              		.cfi_remember_state
+  67              		.cfi_restore 4
+  68              		.cfi_def_cfa_offset 0
+  69 0018 7047     		bx	lr
+  70              	.LVL3:
+  71              	.L5:
+  72              	.LCFI2:
+  73              		.cfi_restore_state
+ 297:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+  74              		.loc 1 297 5 is_stmt 1 view .LVU15
+ 297:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+  75              		.loc 1 297 9 is_stmt 0 view .LVU16
+  76 001a 0368     		ldr	r3, [r0]
+ 297:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+  77              		.loc 1 297 25 view .LVU17
+  78 001c 9A60     		str	r2, [r3, #8]
+  79              	.LVL4:
+ 300:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+  80              		.loc 1 300 5 is_stmt 1 view .LVU18
+ 300:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+  81              		.loc 1 300 9 is_stmt 0 view .LVU19
+  82 001e 0368     		ldr	r3, [r0]
+ 300:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+  83              		.loc 1 300 26 view .LVU20
+ARM GAS  /tmp/ccNYL36S.s 			page 8
+
+
+  84 0020 D960     		str	r1, [r3, #12]
+  85 0022 F7E7     		b	.L1
+  86              		.cfi_endproc
+  87              	.LFE141:
+  89              		.section	.text.HAL_DMAEx_MultiBufferStart,"ax",%progbits
+  90              		.align	1
+  91              		.global	HAL_DMAEx_MultiBufferStart
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv5-sp-d16
+  97              	HAL_DMAEx_MultiBufferStart:
+  98              	.LVL5:
+  99              	.LFB138:
+ 120:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   HAL_StatusTypeDef status = HAL_OK;
+ 100              		.loc 1 120 1 is_stmt 1 view -0
+ 101              		.cfi_startproc
+ 102              		@ args = 4, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 120:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   HAL_StatusTypeDef status = HAL_OK;
+ 104              		.loc 1 120 1 is_stmt 0 view .LVU22
+ 105 0000 38B5     		push	{r3, r4, r5, lr}
+ 106              	.LCFI3:
+ 107              		.cfi_def_cfa_offset 16
+ 108              		.cfi_offset 3, -16
+ 109              		.cfi_offset 4, -12
+ 110              		.cfi_offset 5, -8
+ 111              		.cfi_offset 14, -4
+ 121:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 112              		.loc 1 121 3 is_stmt 1 view .LVU23
+ 113              	.LVL6:
+ 124:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 114              		.loc 1 124 3 view .LVU24
+ 127:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 115              		.loc 1 127 3 view .LVU25
+ 127:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 116              		.loc 1 127 17 is_stmt 0 view .LVU26
+ 117 0002 8468     		ldr	r4, [r0, #8]
+ 127:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 118              		.loc 1 127 6 view .LVU27
+ 119 0004 802C     		cmp	r4, #128
+ 120 0006 0DD0     		beq	.L12
+ 135:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 121              		.loc 1 135 5 is_stmt 1 view .LVU28
+ 135:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 122              		.loc 1 135 5 view .LVU29
+ 123 0008 90F83440 		ldrb	r4, [r0, #52]	@ zero_extendqisi2
+ 124 000c 012C     		cmp	r4, #1
+ 125 000e 24D0     		beq	.L9
+ 135:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 126              		.loc 1 135 5 discriminator 2 view .LVU30
+ 127 0010 0124     		movs	r4, #1
+ 128 0012 80F83440 		strb	r4, [r0, #52]
+ 137:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 129              		.loc 1 137 5 discriminator 2 view .LVU31
+ 137:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 130              		.loc 1 137 35 is_stmt 0 discriminator 2 view .LVU32
+ARM GAS  /tmp/ccNYL36S.s 			page 9
+
+
+ 131 0016 90F83540 		ldrb	r4, [r0, #53]	@ zero_extendqisi2
+ 132 001a E4B2     		uxtb	r4, r4
+ 137:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 133              		.loc 1 137 7 discriminator 2 view .LVU33
+ 134 001c 012C     		cmp	r4, #1
+ 135 001e 06D0     		beq	.L13
+ 157:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 136              		.loc 1 157 14 view .LVU34
+ 137 0020 0220     		movs	r0, #2
+ 138              	.LVL7:
+ 139              	.L8:
+ 161:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 140              		.loc 1 161 1 view .LVU35
+ 141 0022 38BD     		pop	{r3, r4, r5, pc}
+ 142              	.LVL8:
+ 143              	.L12:
+ 129:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     status = HAL_ERROR;
+ 144              		.loc 1 129 5 is_stmt 1 view .LVU36
+ 129:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     status = HAL_ERROR;
+ 145              		.loc 1 129 21 is_stmt 0 view .LVU37
+ 146 0024 4FF48073 		mov	r3, #256
+ 147              	.LVL9:
+ 129:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     status = HAL_ERROR;
+ 148              		.loc 1 129 21 view .LVU38
+ 149 0028 4365     		str	r3, [r0, #84]
+ 130:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 150              		.loc 1 130 5 is_stmt 1 view .LVU39
+ 151              	.LVL10:
+ 130:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 152              		.loc 1 130 12 is_stmt 0 view .LVU40
+ 153 002a 0120     		movs	r0, #1
+ 154              	.LVL11:
+ 130:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 155              		.loc 1 130 12 view .LVU41
+ 156 002c F9E7     		b	.L8
+ 157              	.LVL12:
+ 158              	.L13:
+ 130:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 159              		.loc 1 130 12 view .LVU42
+ 160 002e 0446     		mov	r4, r0
+ 140:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 161              		.loc 1 140 7 is_stmt 1 view .LVU43
+ 140:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 162              		.loc 1 140 19 is_stmt 0 view .LVU44
+ 163 0030 0220     		movs	r0, #2
+ 164              	.LVL13:
+ 140:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 165              		.loc 1 140 19 view .LVU45
+ 166 0032 84F83500 		strb	r0, [r4, #53]
+ 143:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 167              		.loc 1 143 7 is_stmt 1 view .LVU46
+ 143:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 168              		.loc 1 143 11 is_stmt 0 view .LVU47
+ 169 0036 2568     		ldr	r5, [r4]
+ 143:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 170              		.loc 1 143 26 view .LVU48
+ 171 0038 2868     		ldr	r0, [r5]
+ARM GAS  /tmp/ccNYL36S.s 			page 10
+
+
+ 172 003a 40F48020 		orr	r0, r0, #262144
+ 173 003e 2860     		str	r0, [r5]
+ 146:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 174              		.loc 1 146 7 is_stmt 1 view .LVU49
+ 146:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 175              		.loc 1 146 11 is_stmt 0 view .LVU50
+ 176 0040 2068     		ldr	r0, [r4]
+ 146:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 177              		.loc 1 146 28 view .LVU51
+ 178 0042 0361     		str	r3, [r0, #16]
+ 149:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 179              		.loc 1 149 7 is_stmt 1 view .LVU52
+ 180 0044 049B     		ldr	r3, [sp, #16]
+ 181              	.LVL14:
+ 149:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 182              		.loc 1 149 7 is_stmt 0 view .LVU53
+ 183 0046 2046     		mov	r0, r4
+ 184              	.LVL15:
+ 149:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****       
+ 185              		.loc 1 149 7 view .LVU54
+ 186 0048 FFF7FEFF 		bl	DMA_MultiBufferSetConfig
+ 187              	.LVL16:
+ 152:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 188              		.loc 1 152 7 is_stmt 1 view .LVU55
+ 189 004c 2268     		ldr	r2, [r4]
+ 190 004e 1368     		ldr	r3, [r2]
+ 191 0050 43F00103 		orr	r3, r3, #1
+ 192 0054 1360     		str	r3, [r2]
+ 121:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 193              		.loc 1 121 21 is_stmt 0 view .LVU56
+ 194 0056 0020     		movs	r0, #0
+ 195 0058 E3E7     		b	.L8
+ 196              	.LVL17:
+ 197              	.L9:
+ 135:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 198              		.loc 1 135 5 view .LVU57
+ 199 005a 0220     		movs	r0, #2
+ 200              	.LVL18:
+ 135:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 201              		.loc 1 135 5 view .LVU58
+ 202 005c E1E7     		b	.L8
+ 203              		.cfi_endproc
+ 204              	.LFE138:
+ 206              		.section	.text.HAL_DMAEx_MultiBufferStart_IT,"ax",%progbits
+ 207              		.align	1
+ 208              		.global	HAL_DMAEx_MultiBufferStart_IT
+ 209              		.syntax unified
+ 210              		.thumb
+ 211              		.thumb_func
+ 212              		.fpu fpv5-sp-d16
+ 214              	HAL_DMAEx_MultiBufferStart_IT:
+ 215              	.LVL19:
+ 216              	.LFB139:
+ 174:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   HAL_StatusTypeDef status = HAL_OK;
+ 217              		.loc 1 174 1 is_stmt 1 view -0
+ 218              		.cfi_startproc
+ 219              		@ args = 4, pretend = 0, frame = 0
+ARM GAS  /tmp/ccNYL36S.s 			page 11
+
+
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   HAL_StatusTypeDef status = HAL_OK;
+ 221              		.loc 1 174 1 is_stmt 0 view .LVU60
+ 222 0000 38B5     		push	{r3, r4, r5, lr}
+ 223              	.LCFI4:
+ 224              		.cfi_def_cfa_offset 16
+ 225              		.cfi_offset 3, -16
+ 226              		.cfi_offset 4, -12
+ 227              		.cfi_offset 5, -8
+ 228              		.cfi_offset 14, -4
+ 175:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 229              		.loc 1 175 3 is_stmt 1 view .LVU61
+ 230              	.LVL20:
+ 178:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 231              		.loc 1 178 3 view .LVU62
+ 181:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 232              		.loc 1 181 3 view .LVU63
+ 181:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 233              		.loc 1 181 17 is_stmt 0 view .LVU64
+ 234 0002 8468     		ldr	r4, [r0, #8]
+ 181:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 235              		.loc 1 181 6 view .LVU65
+ 236 0004 802C     		cmp	r4, #128
+ 237 0006 11D0     		beq	.L302
+ 188:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 238              		.loc 1 188 3 is_stmt 1 view .LVU66
+ 188:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 239              		.loc 1 188 3 view .LVU67
+ 240 0008 90F83440 		ldrb	r4, [r0, #52]	@ zero_extendqisi2
+ 241 000c 012C     		cmp	r4, #1
+ 242 000e 00F05D87 		beq	.L60
+ 188:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 243              		.loc 1 188 3 discriminator 2 view .LVU68
+ 244 0012 0124     		movs	r4, #1
+ 245 0014 80F83440 		strb	r4, [r0, #52]
+ 190:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 246              		.loc 1 190 3 discriminator 2 view .LVU69
+ 190:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 247              		.loc 1 190 33 is_stmt 0 discriminator 2 view .LVU70
+ 248 0018 90F83540 		ldrb	r4, [r0, #53]	@ zero_extendqisi2
+ 249 001c E4B2     		uxtb	r4, r4
+ 190:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 250              		.loc 1 190 5 discriminator 2 view .LVU71
+ 251 001e 012C     		cmp	r4, #1
+ 252 0020 09D0     		beq	.L303
+ 229:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 253              		.loc 1 229 5 is_stmt 1 view .LVU72
+ 229:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 254              		.loc 1 229 5 view .LVU73
+ 255 0022 0023     		movs	r3, #0
+ 256              	.LVL21:
+ 229:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 257              		.loc 1 229 5 is_stmt 0 view .LVU74
+ 258 0024 80F83430 		strb	r3, [r0, #52]
+ 232:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }  
+ 259              		.loc 1 232 5 is_stmt 1 view .LVU75
+ 260              	.LVL22:
+ARM GAS  /tmp/ccNYL36S.s 			page 12
+
+
+ 232:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }  
+ 261              		.loc 1 232 12 is_stmt 0 view .LVU76
+ 262 0028 0220     		movs	r0, #2
+ 263              	.LVL23:
+ 264              	.L16:
+ 235:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 265              		.loc 1 235 1 view .LVU77
+ 266 002a 38BD     		pop	{r3, r4, r5, pc}
+ 267              	.LVL24:
+ 268              	.L302:
+ 183:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     return HAL_ERROR;
+ 269              		.loc 1 183 5 is_stmt 1 view .LVU78
+ 183:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     return HAL_ERROR;
+ 270              		.loc 1 183 21 is_stmt 0 view .LVU79
+ 271 002c 4FF48073 		mov	r3, #256
+ 272              	.LVL25:
+ 183:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     return HAL_ERROR;
+ 273              		.loc 1 183 21 view .LVU80
+ 274 0030 4365     		str	r3, [r0, #84]
+ 184:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 275              		.loc 1 184 5 is_stmt 1 view .LVU81
+ 184:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 276              		.loc 1 184 12 is_stmt 0 view .LVU82
+ 277 0032 0120     		movs	r0, #1
+ 278              	.LVL26:
+ 184:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 279              		.loc 1 184 12 view .LVU83
+ 280 0034 F9E7     		b	.L16
+ 281              	.LVL27:
+ 282              	.L303:
+ 184:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 283              		.loc 1 184 12 view .LVU84
+ 284 0036 0446     		mov	r4, r0
+ 193:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 285              		.loc 1 193 5 is_stmt 1 view .LVU85
+ 193:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 286              		.loc 1 193 17 is_stmt 0 view .LVU86
+ 287 0038 0220     		movs	r0, #2
+ 288              	.LVL28:
+ 193:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 289              		.loc 1 193 17 view .LVU87
+ 290 003a 84F83500 		strb	r0, [r4, #53]
+ 196:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 291              		.loc 1 196 5 is_stmt 1 view .LVU88
+ 196:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 292              		.loc 1 196 21 is_stmt 0 view .LVU89
+ 293 003e 0020     		movs	r0, #0
+ 294 0040 6065     		str	r0, [r4, #84]
+ 199:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 295              		.loc 1 199 5 is_stmt 1 view .LVU90
+ 199:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 296              		.loc 1 199 9 is_stmt 0 view .LVU91
+ 297 0042 2568     		ldr	r5, [r4]
+ 199:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 298              		.loc 1 199 24 view .LVU92
+ 299 0044 2868     		ldr	r0, [r5]
+ 300 0046 40F48020 		orr	r0, r0, #262144
+ARM GAS  /tmp/ccNYL36S.s 			page 13
+
+
+ 301 004a 2860     		str	r0, [r5]
+ 202:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 302              		.loc 1 202 5 is_stmt 1 view .LVU93
+ 202:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 303              		.loc 1 202 9 is_stmt 0 view .LVU94
+ 304 004c 2068     		ldr	r0, [r4]
+ 202:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 305              		.loc 1 202 26 view .LVU95
+ 306 004e 0361     		str	r3, [r0, #16]
+ 205:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 307              		.loc 1 205 5 is_stmt 1 view .LVU96
+ 308 0050 049B     		ldr	r3, [sp, #16]
+ 309              	.LVL29:
+ 205:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 310              		.loc 1 205 5 is_stmt 0 view .LVU97
+ 311 0052 2046     		mov	r0, r4
+ 312              	.LVL30:
+ 205:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 313              		.loc 1 205 5 view .LVU98
+ 314 0054 FFF7FEFF 		bl	DMA_MultiBufferSetConfig
+ 315              	.LVL31:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 316              		.loc 1 208 5 is_stmt 1 view .LVU99
+ 317 0058 2368     		ldr	r3, [r4]
+ 318 005a C64A     		ldr	r2, .L325
+ 319 005c 9342     		cmp	r3, r2
+ 320 005e 40F29880 		bls	.L18
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 321              		.loc 1 208 5 is_stmt 0 discriminator 1 view .LVU100
+ 322 0062 A2F58962 		sub	r2, r2, #1096
+ 323 0066 9342     		cmp	r3, r2
+ 324 0068 31D0     		beq	.L61
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 325              		.loc 1 208 5 discriminator 3 view .LVU101
+ 326 006a 02F58062 		add	r2, r2, #1024
+ 327 006e 9342     		cmp	r3, r2
+ 328 0070 74D0     		beq	.L62
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 329              		.loc 1 208 5 discriminator 5 view .LVU102
+ 330 0072 A2F56872 		sub	r2, r2, #928
+ 331 0076 9342     		cmp	r3, r2
+ 332 0078 72D0     		beq	.L63
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 333              		.loc 1 208 5 discriminator 7 view .LVU103
+ 334 007a 02F58062 		add	r2, r2, #1024
+ 335 007e 9342     		cmp	r3, r2
+ 336 0080 70D0     		beq	.L64
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 337              		.loc 1 208 5 discriminator 9 view .LVU104
+ 338 0082 A2F58962 		sub	r2, r2, #1096
+ 339 0086 9342     		cmp	r3, r2
+ 340 0088 6ED0     		beq	.L65
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 341              		.loc 1 208 5 discriminator 11 view .LVU105
+ 342 008a 02F58062 		add	r2, r2, #1024
+ 343 008e 9342     		cmp	r3, r2
+ 344 0090 6DD0     		beq	.L66
+ARM GAS  /tmp/ccNYL36S.s 			page 14
+
+
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 345              		.loc 1 208 5 discriminator 13 view .LVU106
+ 346 0092 A2F56872 		sub	r2, r2, #928
+ 347 0096 9342     		cmp	r3, r2
+ 348 0098 6CD0     		beq	.L67
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 349              		.loc 1 208 5 discriminator 15 view .LVU107
+ 350 009a 02F58062 		add	r2, r2, #1024
+ 351 009e 9342     		cmp	r3, r2
+ 352 00a0 6BD0     		beq	.L68
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 353              		.loc 1 208 5 discriminator 17 view .LVU108
+ 354 00a2 A2F58962 		sub	r2, r2, #1096
+ 355 00a6 9342     		cmp	r3, r2
+ 356 00a8 6AD0     		beq	.L69
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 357              		.loc 1 208 5 discriminator 19 view .LVU109
+ 358 00aa 02F58062 		add	r2, r2, #1024
+ 359 00ae 9342     		cmp	r3, r2
+ 360 00b0 69D0     		beq	.L70
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 361              		.loc 1 208 5 discriminator 21 view .LVU110
+ 362 00b2 A2F56872 		sub	r2, r2, #928
+ 363 00b6 9342     		cmp	r3, r2
+ 364 00b8 68D0     		beq	.L71
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 365              		.loc 1 208 5 discriminator 23 view .LVU111
+ 366 00ba 02F58062 		add	r2, r2, #1024
+ 367 00be 9342     		cmp	r3, r2
+ 368 00c0 02D0     		beq	.L304
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 369              		.loc 1 208 5 view .LVU112
+ 370 00c2 4FF00062 		mov	r2, #134217728
+ 371 00c6 03E0     		b	.L19
+ 372              	.L304:
+ 373 00c8 4FF40012 		mov	r2, #2097152
+ 374 00cc 00E0     		b	.L19
+ 375              	.L61:
+ 376 00ce 2022     		movs	r2, #32
+ 377              	.L19:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 378              		.loc 1 208 5 discriminator 50 view .LVU113
+ 379 00d0 A94B     		ldr	r3, .L325+4
+ 380 00d2 DA60     		str	r2, [r3, #12]
+ 381              	.LVL32:
+ 382              	.L20:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 383              		.loc 1 209 5 is_stmt 1 view .LVU114
+ 384 00d4 2368     		ldr	r3, [r4]
+ 385 00d6 A74A     		ldr	r2, .L325
+ 386 00d8 9342     		cmp	r3, r2
+ 387 00da 40F2CE81 		bls	.L26
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 388              		.loc 1 209 5 is_stmt 0 discriminator 1 view .LVU115
+ 389 00de A2F58962 		sub	r2, r2, #1096
+ 390 00e2 9342     		cmp	r3, r2
+ 391 00e4 00F06781 		beq	.L109
+ARM GAS  /tmp/ccNYL36S.s 			page 15
+
+
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 392              		.loc 1 209 5 discriminator 3 view .LVU116
+ 393 00e8 02F58062 		add	r2, r2, #1024
+ 394 00ec 9342     		cmp	r3, r2
+ 395 00ee 00F0A981 		beq	.L110
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 396              		.loc 1 209 5 discriminator 5 view .LVU117
+ 397 00f2 A2F56872 		sub	r2, r2, #928
+ 398 00f6 9342     		cmp	r3, r2
+ 399 00f8 00F0A681 		beq	.L111
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 400              		.loc 1 209 5 discriminator 7 view .LVU118
+ 401 00fc 02F58062 		add	r2, r2, #1024
+ 402 0100 9342     		cmp	r3, r2
+ 403 0102 00F0A381 		beq	.L112
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 404              		.loc 1 209 5 discriminator 9 view .LVU119
+ 405 0106 A2F58962 		sub	r2, r2, #1096
+ 406 010a 9342     		cmp	r3, r2
+ 407 010c 00F0A081 		beq	.L113
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 408              		.loc 1 209 5 discriminator 11 view .LVU120
+ 409 0110 02F58062 		add	r2, r2, #1024
+ 410 0114 9342     		cmp	r3, r2
+ 411 0116 00F09E81 		beq	.L114
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 412              		.loc 1 209 5 discriminator 13 view .LVU121
+ 413 011a A2F56872 		sub	r2, r2, #928
+ 414 011e 9342     		cmp	r3, r2
+ 415 0120 00F09C81 		beq	.L115
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 416              		.loc 1 209 5 discriminator 15 view .LVU122
+ 417 0124 02F58062 		add	r2, r2, #1024
+ 418 0128 9342     		cmp	r3, r2
+ 419 012a 00F09A81 		beq	.L116
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 420              		.loc 1 209 5 discriminator 17 view .LVU123
+ 421 012e A2F58962 		sub	r2, r2, #1096
+ 422 0132 9342     		cmp	r3, r2
+ 423 0134 00F09881 		beq	.L117
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 424              		.loc 1 209 5 discriminator 19 view .LVU124
+ 425 0138 02F58062 		add	r2, r2, #1024
+ 426 013c 9342     		cmp	r3, r2
+ 427 013e 00F09681 		beq	.L118
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 428              		.loc 1 209 5 discriminator 21 view .LVU125
+ 429 0142 A2F56872 		sub	r2, r2, #928
+ 430 0146 9342     		cmp	r3, r2
+ 431 0148 00F09481 		beq	.L119
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 432              		.loc 1 209 5 discriminator 23 view .LVU126
+ 433 014c 02F58062 		add	r2, r2, #1024
+ 434 0150 9342     		cmp	r3, r2
+ 435 0152 00F02D81 		beq	.L305
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 436              		.loc 1 209 5 view .LVU127
+ARM GAS  /tmp/ccNYL36S.s 			page 16
+
+
+ 437 0156 4FF08062 		mov	r2, #67108864
+ 438 015a 2DE1     		b	.L27
+ 439              	.LVL33:
+ 440              	.L62:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 441              		.loc 1 208 5 view .LVU128
+ 442 015c 2022     		movs	r2, #32
+ 443 015e B7E7     		b	.L19
+ 444              	.L63:
+ 445 0160 2022     		movs	r2, #32
+ 446 0162 B5E7     		b	.L19
+ 447              	.L64:
+ 448 0164 2022     		movs	r2, #32
+ 449 0166 B3E7     		b	.L19
+ 450              	.L65:
+ 451 0168 4FF40062 		mov	r2, #2048
+ 452 016c B0E7     		b	.L19
+ 453              	.L66:
+ 454 016e 4FF40062 		mov	r2, #2048
+ 455 0172 ADE7     		b	.L19
+ 456              	.L67:
+ 457 0174 4FF40062 		mov	r2, #2048
+ 458 0178 AAE7     		b	.L19
+ 459              	.L68:
+ 460 017a 4FF40062 		mov	r2, #2048
+ 461 017e A7E7     		b	.L19
+ 462              	.L69:
+ 463 0180 4FF40012 		mov	r2, #2097152
+ 464 0184 A4E7     		b	.L19
+ 465              	.L70:
+ 466 0186 4FF40012 		mov	r2, #2097152
+ 467 018a A1E7     		b	.L19
+ 468              	.L71:
+ 469 018c 4FF40012 		mov	r2, #2097152
+ 470 0190 9EE7     		b	.L19
+ 471              	.L18:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 472              		.loc 1 208 5 discriminator 2 view .LVU129
+ 473 0192 7A4A     		ldr	r2, .L325+8
+ 474 0194 9342     		cmp	r3, r2
+ 475 0196 53D9     		bls	.L21
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 476              		.loc 1 208 5 discriminator 51 view .LVU130
+ 477 0198 A83A     		subs	r2, r2, #168
+ 478 019a 9342     		cmp	r3, r2
+ 479 019c 31D0     		beq	.L73
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 480              		.loc 1 208 5 discriminator 53 view .LVU131
+ 481 019e 02F58062 		add	r2, r2, #1024
+ 482 01a2 9342     		cmp	r3, r2
+ 483 01a4 31D0     		beq	.L74
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 484              		.loc 1 208 5 discriminator 55 view .LVU132
+ 485 01a6 A2F56872 		sub	r2, r2, #928
+ 486 01aa 9342     		cmp	r3, r2
+ 487 01ac 2FD0     		beq	.L75
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ARM GAS  /tmp/ccNYL36S.s 			page 17
+
+
+ 488              		.loc 1 208 5 discriminator 57 view .LVU133
+ 489 01ae 02F58062 		add	r2, r2, #1024
+ 490 01b2 9342     		cmp	r3, r2
+ 491 01b4 2DD0     		beq	.L76
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 492              		.loc 1 208 5 discriminator 59 view .LVU134
+ 493 01b6 A2F58962 		sub	r2, r2, #1096
+ 494 01ba 9342     		cmp	r3, r2
+ 495 01bc 2BD0     		beq	.L77
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 496              		.loc 1 208 5 discriminator 61 view .LVU135
+ 497 01be 02F58062 		add	r2, r2, #1024
+ 498 01c2 9342     		cmp	r3, r2
+ 499 01c4 2AD0     		beq	.L78
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 500              		.loc 1 208 5 discriminator 63 view .LVU136
+ 501 01c6 A2F56872 		sub	r2, r2, #928
+ 502 01ca 9342     		cmp	r3, r2
+ 503 01cc 29D0     		beq	.L79
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 504              		.loc 1 208 5 discriminator 65 view .LVU137
+ 505 01ce 02F58062 		add	r2, r2, #1024
+ 506 01d2 9342     		cmp	r3, r2
+ 507 01d4 28D0     		beq	.L80
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 508              		.loc 1 208 5 discriminator 67 view .LVU138
+ 509 01d6 A2F58962 		sub	r2, r2, #1096
+ 510 01da 9342     		cmp	r3, r2
+ 511 01dc 27D0     		beq	.L81
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 512              		.loc 1 208 5 discriminator 69 view .LVU139
+ 513 01de 02F58062 		add	r2, r2, #1024
+ 514 01e2 9342     		cmp	r3, r2
+ 515 01e4 26D0     		beq	.L82
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 516              		.loc 1 208 5 discriminator 71 view .LVU140
+ 517 01e6 A2F56872 		sub	r2, r2, #928
+ 518 01ea 9342     		cmp	r3, r2
+ 519 01ec 25D0     		beq	.L83
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 520              		.loc 1 208 5 discriminator 73 view .LVU141
+ 521 01ee 02F58062 		add	r2, r2, #1024
+ 522 01f2 9342     		cmp	r3, r2
+ 523 01f4 02D0     		beq	.L306
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 524              		.loc 1 208 5 view .LVU142
+ 525 01f6 4FF00062 		mov	r2, #134217728
+ 526 01fa 03E0     		b	.L22
+ 527              	.L306:
+ 528 01fc 4FF40012 		mov	r2, #2097152
+ 529 0200 00E0     		b	.L22
+ 530              	.L73:
+ 531 0202 2022     		movs	r2, #32
+ 532              	.L22:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 533              		.loc 1 208 5 discriminator 100 view .LVU143
+ 534 0204 5C4B     		ldr	r3, .L325+4
+ARM GAS  /tmp/ccNYL36S.s 			page 18
+
+
+ 535 0206 9A60     		str	r2, [r3, #8]
+ 536              	.LVL34:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 537              		.loc 1 208 5 discriminator 100 view .LVU144
+ 538 0208 64E7     		b	.L20
+ 539              	.LVL35:
+ 540              	.L74:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 541              		.loc 1 208 5 view .LVU145
+ 542 020a 2022     		movs	r2, #32
+ 543 020c FAE7     		b	.L22
+ 544              	.L75:
+ 545 020e 2022     		movs	r2, #32
+ 546 0210 F8E7     		b	.L22
+ 547              	.L76:
+ 548 0212 2022     		movs	r2, #32
+ 549 0214 F6E7     		b	.L22
+ 550              	.L77:
+ 551 0216 4FF40062 		mov	r2, #2048
+ 552 021a F3E7     		b	.L22
+ 553              	.L78:
+ 554 021c 4FF40062 		mov	r2, #2048
+ 555 0220 F0E7     		b	.L22
+ 556              	.L79:
+ 557 0222 4FF40062 		mov	r2, #2048
+ 558 0226 EDE7     		b	.L22
+ 559              	.L80:
+ 560 0228 4FF40062 		mov	r2, #2048
+ 561 022c EAE7     		b	.L22
+ 562              	.L81:
+ 563 022e 4FF40012 		mov	r2, #2097152
+ 564 0232 E7E7     		b	.L22
+ 565              	.L82:
+ 566 0234 4FF40012 		mov	r2, #2097152
+ 567 0238 E4E7     		b	.L22
+ 568              	.L83:
+ 569 023a 4FF40012 		mov	r2, #2097152
+ 570 023e E1E7     		b	.L22
+ 571              	.L21:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 572              		.loc 1 208 5 discriminator 52 view .LVU146
+ 573 0240 4F4A     		ldr	r2, .L325+12
+ 574 0242 9342     		cmp	r3, r2
+ 575 0244 53D9     		bls	.L23
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 576              		.loc 1 208 5 discriminator 102 view .LVU147
+ 577 0246 483A     		subs	r2, r2, #72
+ 578 0248 9342     		cmp	r3, r2
+ 579 024a 31D0     		beq	.L85
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 580              		.loc 1 208 5 discriminator 104 view .LVU148
+ 581 024c 02F58062 		add	r2, r2, #1024
+ 582 0250 9342     		cmp	r3, r2
+ 583 0252 31D0     		beq	.L86
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 584              		.loc 1 208 5 discriminator 106 view .LVU149
+ 585 0254 A2F56872 		sub	r2, r2, #928
+ARM GAS  /tmp/ccNYL36S.s 			page 19
+
+
+ 586 0258 9342     		cmp	r3, r2
+ 587 025a 2FD0     		beq	.L87
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 588              		.loc 1 208 5 discriminator 108 view .LVU150
+ 589 025c 02F58062 		add	r2, r2, #1024
+ 590 0260 9342     		cmp	r3, r2
+ 591 0262 2DD0     		beq	.L88
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 592              		.loc 1 208 5 discriminator 110 view .LVU151
+ 593 0264 A2F58962 		sub	r2, r2, #1096
+ 594 0268 9342     		cmp	r3, r2
+ 595 026a 2BD0     		beq	.L89
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 596              		.loc 1 208 5 discriminator 112 view .LVU152
+ 597 026c 02F58062 		add	r2, r2, #1024
+ 598 0270 9342     		cmp	r3, r2
+ 599 0272 2AD0     		beq	.L90
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 600              		.loc 1 208 5 discriminator 114 view .LVU153
+ 601 0274 A2F56872 		sub	r2, r2, #928
+ 602 0278 9342     		cmp	r3, r2
+ 603 027a 29D0     		beq	.L91
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 604              		.loc 1 208 5 discriminator 116 view .LVU154
+ 605 027c 02F58062 		add	r2, r2, #1024
+ 606 0280 9342     		cmp	r3, r2
+ 607 0282 28D0     		beq	.L92
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 608              		.loc 1 208 5 discriminator 118 view .LVU155
+ 609 0284 A2F58962 		sub	r2, r2, #1096
+ 610 0288 9342     		cmp	r3, r2
+ 611 028a 27D0     		beq	.L93
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 612              		.loc 1 208 5 discriminator 120 view .LVU156
+ 613 028c 02F58062 		add	r2, r2, #1024
+ 614 0290 9342     		cmp	r3, r2
+ 615 0292 26D0     		beq	.L94
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 616              		.loc 1 208 5 discriminator 122 view .LVU157
+ 617 0294 A2F56872 		sub	r2, r2, #928
+ 618 0298 9342     		cmp	r3, r2
+ 619 029a 25D0     		beq	.L95
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 620              		.loc 1 208 5 discriminator 124 view .LVU158
+ 621 029c 02F58062 		add	r2, r2, #1024
+ 622 02a0 9342     		cmp	r3, r2
+ 623 02a2 02D0     		beq	.L307
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 624              		.loc 1 208 5 view .LVU159
+ 625 02a4 4FF00063 		mov	r3, #134217728
+ 626 02a8 03E0     		b	.L24
+ 627              	.L307:
+ 628 02aa 4FF40013 		mov	r3, #2097152
+ 629 02ae 00E0     		b	.L24
+ 630              	.L85:
+ 631 02b0 2023     		movs	r3, #32
+ 632              	.L24:
+ARM GAS  /tmp/ccNYL36S.s 			page 20
+
+
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 633              		.loc 1 208 5 discriminator 151 view .LVU160
+ 634 02b2 344A     		ldr	r2, .L325+16
+ 635 02b4 D360     		str	r3, [r2, #12]
+ 636              	.LVL36:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 637              		.loc 1 208 5 discriminator 151 view .LVU161
+ 638 02b6 0DE7     		b	.L20
+ 639              	.LVL37:
+ 640              	.L86:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 641              		.loc 1 208 5 view .LVU162
+ 642 02b8 2023     		movs	r3, #32
+ 643 02ba FAE7     		b	.L24
+ 644              	.L87:
+ 645 02bc 2023     		movs	r3, #32
+ 646 02be F8E7     		b	.L24
+ 647              	.L88:
+ 648 02c0 2023     		movs	r3, #32
+ 649 02c2 F6E7     		b	.L24
+ 650              	.L89:
+ 651 02c4 4FF40063 		mov	r3, #2048
+ 652 02c8 F3E7     		b	.L24
+ 653              	.L90:
+ 654 02ca 4FF40063 		mov	r3, #2048
+ 655 02ce F0E7     		b	.L24
+ 656              	.L91:
+ 657 02d0 4FF40063 		mov	r3, #2048
+ 658 02d4 EDE7     		b	.L24
+ 659              	.L92:
+ 660 02d6 4FF40063 		mov	r3, #2048
+ 661 02da EAE7     		b	.L24
+ 662              	.L93:
+ 663 02dc 4FF40013 		mov	r3, #2097152
+ 664 02e0 E7E7     		b	.L24
+ 665              	.L94:
+ 666 02e2 4FF40013 		mov	r3, #2097152
+ 667 02e6 E4E7     		b	.L24
+ 668              	.L95:
+ 669 02e8 4FF40013 		mov	r3, #2097152
+ 670 02ec E1E7     		b	.L24
+ 671              	.L23:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 672              		.loc 1 208 5 discriminator 103 view .LVU163
+ 673 02ee 264A     		ldr	r2, .L325+20
+ 674 02f0 9342     		cmp	r3, r2
+ 675 02f2 31D0     		beq	.L97
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 676              		.loc 1 208 5 discriminator 153 view .LVU164
+ 677 02f4 02F58062 		add	r2, r2, #1024
+ 678 02f8 9342     		cmp	r3, r2
+ 679 02fa 31D0     		beq	.L98
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 680              		.loc 1 208 5 discriminator 155 view .LVU165
+ 681 02fc A2F56872 		sub	r2, r2, #928
+ 682 0300 9342     		cmp	r3, r2
+ 683 0302 2FD0     		beq	.L99
+ARM GAS  /tmp/ccNYL36S.s 			page 21
+
+
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 684              		.loc 1 208 5 discriminator 157 view .LVU166
+ 685 0304 02F58062 		add	r2, r2, #1024
+ 686 0308 9342     		cmp	r3, r2
+ 687 030a 2DD0     		beq	.L100
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 688              		.loc 1 208 5 discriminator 159 view .LVU167
+ 689 030c A2F58962 		sub	r2, r2, #1096
+ 690 0310 9342     		cmp	r3, r2
+ 691 0312 2BD0     		beq	.L101
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 692              		.loc 1 208 5 discriminator 161 view .LVU168
+ 693 0314 02F58062 		add	r2, r2, #1024
+ 694 0318 9342     		cmp	r3, r2
+ 695 031a 37D0     		beq	.L102
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 696              		.loc 1 208 5 discriminator 163 view .LVU169
+ 697 031c A2F56872 		sub	r2, r2, #928
+ 698 0320 9342     		cmp	r3, r2
+ 699 0322 36D0     		beq	.L103
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 700              		.loc 1 208 5 discriminator 165 view .LVU170
+ 701 0324 02F58062 		add	r2, r2, #1024
+ 702 0328 9342     		cmp	r3, r2
+ 703 032a 35D0     		beq	.L104
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 704              		.loc 1 208 5 discriminator 167 view .LVU171
+ 705 032c A2F58962 		sub	r2, r2, #1096
+ 706 0330 9342     		cmp	r3, r2
+ 707 0332 34D0     		beq	.L105
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 708              		.loc 1 208 5 discriminator 169 view .LVU172
+ 709 0334 02F58062 		add	r2, r2, #1024
+ 710 0338 9342     		cmp	r3, r2
+ 711 033a 33D0     		beq	.L106
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 712              		.loc 1 208 5 discriminator 171 view .LVU173
+ 713 033c A2F56872 		sub	r2, r2, #928
+ 714 0340 9342     		cmp	r3, r2
+ 715 0342 32D0     		beq	.L107
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 716              		.loc 1 208 5 discriminator 173 view .LVU174
+ 717 0344 02F58062 		add	r2, r2, #1024
+ 718 0348 9342     		cmp	r3, r2
+ 719 034a 02D0     		beq	.L308
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 720              		.loc 1 208 5 view .LVU175
+ 721 034c 4FF00063 		mov	r3, #134217728
+ 722 0350 03E0     		b	.L25
+ 723              	.L308:
+ 724 0352 4FF40013 		mov	r3, #2097152
+ 725 0356 00E0     		b	.L25
+ 726              	.L97:
+ 727 0358 2023     		movs	r3, #32
+ 728              	.L25:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 729              		.loc 1 208 5 discriminator 200 view .LVU176
+ARM GAS  /tmp/ccNYL36S.s 			page 22
+
+
+ 730 035a 0A4A     		ldr	r2, .L325+16
+ 731 035c 9360     		str	r3, [r2, #8]
+ 732              	.LVL38:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 733              		.loc 1 208 5 discriminator 200 view .LVU177
+ 734 035e B9E6     		b	.L20
+ 735              	.LVL39:
+ 736              	.L98:
+ 208:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_HT_FLAG_INDEX(hdma));
+ 737              		.loc 1 208 5 view .LVU178
+ 738 0360 2023     		movs	r3, #32
+ 739 0362 FAE7     		b	.L25
+ 740              	.L99:
+ 741 0364 2023     		movs	r3, #32
+ 742 0366 F8E7     		b	.L25
+ 743              	.L100:
+ 744 0368 2023     		movs	r3, #32
+ 745 036a F6E7     		b	.L25
+ 746              	.L101:
+ 747 036c 4FF40063 		mov	r3, #2048
+ 748 0370 F3E7     		b	.L25
+ 749              	.L326:
+ 750 0372 00BF     		.align	2
+ 751              	.L325:
+ 752 0374 58640240 		.word	1073898584
+ 753 0378 00640240 		.word	1073898496
+ 754 037c B8600240 		.word	1073897656
+ 755 0380 58600240 		.word	1073897560
+ 756 0384 00600240 		.word	1073897472
+ 757 0388 10600240 		.word	1073897488
+ 758              	.L102:
+ 759 038c 4FF40063 		mov	r3, #2048
+ 760 0390 E3E7     		b	.L25
+ 761              	.L103:
+ 762 0392 4FF40063 		mov	r3, #2048
+ 763 0396 E0E7     		b	.L25
+ 764              	.L104:
+ 765 0398 4FF40063 		mov	r3, #2048
+ 766 039c DDE7     		b	.L25
+ 767              	.L105:
+ 768 039e 4FF40013 		mov	r3, #2097152
+ 769 03a2 DAE7     		b	.L25
+ 770              	.L106:
+ 771 03a4 4FF40013 		mov	r3, #2097152
+ 772 03a8 D7E7     		b	.L25
+ 773              	.L107:
+ 774 03aa 4FF40013 		mov	r3, #2097152
+ 775 03ae D4E7     		b	.L25
+ 776              	.LVL40:
+ 777              	.L305:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 778              		.loc 1 209 5 view .LVU179
+ 779 03b0 4FF48012 		mov	r2, #1048576
+ 780 03b4 00E0     		b	.L27
+ 781              	.L109:
+ 782 03b6 1022     		movs	r2, #16
+ 783              	.L27:
+ARM GAS  /tmp/ccNYL36S.s 			page 23
+
+
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 784              		.loc 1 209 5 discriminator 50 view .LVU180
+ 785 03b8 B24B     		ldr	r3, .L327
+ 786 03ba DA60     		str	r2, [r3, #12]
+ 787              	.L28:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 788              		.loc 1 210 5 is_stmt 1 view .LVU181
+ 789 03bc 2368     		ldr	r3, [r4]
+ 790 03be B24A     		ldr	r2, .L327+4
+ 791 03c0 9342     		cmp	r3, r2
+ 792 03c2 40F2CD81 		bls	.L34
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 793              		.loc 1 210 5 is_stmt 0 discriminator 1 view .LVU182
+ 794 03c6 A2F58962 		sub	r2, r2, #1096
+ 795 03ca 9342     		cmp	r3, r2
+ 796 03cc 00F06681 		beq	.L157
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 797              		.loc 1 210 5 discriminator 3 view .LVU183
+ 798 03d0 02F58062 		add	r2, r2, #1024
+ 799 03d4 9342     		cmp	r3, r2
+ 800 03d6 00F0A881 		beq	.L158
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 801              		.loc 1 210 5 discriminator 5 view .LVU184
+ 802 03da A2F56872 		sub	r2, r2, #928
+ 803 03de 9342     		cmp	r3, r2
+ 804 03e0 00F0A581 		beq	.L159
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 805              		.loc 1 210 5 discriminator 7 view .LVU185
+ 806 03e4 02F58062 		add	r2, r2, #1024
+ 807 03e8 9342     		cmp	r3, r2
+ 808 03ea 00F0A281 		beq	.L160
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 809              		.loc 1 210 5 discriminator 9 view .LVU186
+ 810 03ee A2F58962 		sub	r2, r2, #1096
+ 811 03f2 9342     		cmp	r3, r2
+ 812 03f4 00F09F81 		beq	.L161
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 813              		.loc 1 210 5 discriminator 11 view .LVU187
+ 814 03f8 02F58062 		add	r2, r2, #1024
+ 815 03fc 9342     		cmp	r3, r2
+ 816 03fe 00F09D81 		beq	.L162
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 817              		.loc 1 210 5 discriminator 13 view .LVU188
+ 818 0402 A2F56872 		sub	r2, r2, #928
+ 819 0406 9342     		cmp	r3, r2
+ 820 0408 00F09B81 		beq	.L163
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 821              		.loc 1 210 5 discriminator 15 view .LVU189
+ 822 040c 02F58062 		add	r2, r2, #1024
+ 823 0410 9342     		cmp	r3, r2
+ 824 0412 00F09981 		beq	.L164
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 825              		.loc 1 210 5 discriminator 17 view .LVU190
+ 826 0416 A2F58962 		sub	r2, r2, #1096
+ 827 041a 9342     		cmp	r3, r2
+ 828 041c 00F09781 		beq	.L165
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ARM GAS  /tmp/ccNYL36S.s 			page 24
+
+
+ 829              		.loc 1 210 5 discriminator 19 view .LVU191
+ 830 0420 02F58062 		add	r2, r2, #1024
+ 831 0424 9342     		cmp	r3, r2
+ 832 0426 00F09581 		beq	.L166
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 833              		.loc 1 210 5 discriminator 21 view .LVU192
+ 834 042a A2F56872 		sub	r2, r2, #928
+ 835 042e 9342     		cmp	r3, r2
+ 836 0430 00F09381 		beq	.L167
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 837              		.loc 1 210 5 discriminator 23 view .LVU193
+ 838 0434 02F58062 		add	r2, r2, #1024
+ 839 0438 9342     		cmp	r3, r2
+ 840 043a 00F02081 		beq	.L309
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 841              		.loc 1 210 5 view .LVU194
+ 842 043e 4FF00072 		mov	r2, #33554432
+ 843 0442 2CE1     		b	.L35
+ 844              	.L110:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 845              		.loc 1 209 5 view .LVU195
+ 846 0444 1022     		movs	r2, #16
+ 847 0446 B7E7     		b	.L27
+ 848              	.L111:
+ 849 0448 1022     		movs	r2, #16
+ 850 044a B5E7     		b	.L27
+ 851              	.L112:
+ 852 044c 1022     		movs	r2, #16
+ 853 044e B3E7     		b	.L27
+ 854              	.L113:
+ 855 0450 4FF48062 		mov	r2, #1024
+ 856 0454 B0E7     		b	.L27
+ 857              	.L114:
+ 858 0456 4FF48062 		mov	r2, #1024
+ 859 045a ADE7     		b	.L27
+ 860              	.L115:
+ 861 045c 4FF48062 		mov	r2, #1024
+ 862 0460 AAE7     		b	.L27
+ 863              	.L116:
+ 864 0462 4FF48062 		mov	r2, #1024
+ 865 0466 A7E7     		b	.L27
+ 866              	.L117:
+ 867 0468 4FF48012 		mov	r2, #1048576
+ 868 046c A4E7     		b	.L27
+ 869              	.L118:
+ 870 046e 4FF48012 		mov	r2, #1048576
+ 871 0472 A1E7     		b	.L27
+ 872              	.L119:
+ 873 0474 4FF48012 		mov	r2, #1048576
+ 874 0478 9EE7     		b	.L27
+ 875              	.L26:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 876              		.loc 1 209 5 discriminator 2 view .LVU196
+ 877 047a 844A     		ldr	r2, .L327+8
+ 878 047c 9342     		cmp	r3, r2
+ 879 047e 53D9     		bls	.L29
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ARM GAS  /tmp/ccNYL36S.s 			page 25
+
+
+ 880              		.loc 1 209 5 discriminator 51 view .LVU197
+ 881 0480 A83A     		subs	r2, r2, #168
+ 882 0482 9342     		cmp	r3, r2
+ 883 0484 31D0     		beq	.L121
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 884              		.loc 1 209 5 discriminator 53 view .LVU198
+ 885 0486 02F58062 		add	r2, r2, #1024
+ 886 048a 9342     		cmp	r3, r2
+ 887 048c 31D0     		beq	.L122
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 888              		.loc 1 209 5 discriminator 55 view .LVU199
+ 889 048e A2F56872 		sub	r2, r2, #928
+ 890 0492 9342     		cmp	r3, r2
+ 891 0494 2FD0     		beq	.L123
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 892              		.loc 1 209 5 discriminator 57 view .LVU200
+ 893 0496 02F58062 		add	r2, r2, #1024
+ 894 049a 9342     		cmp	r3, r2
+ 895 049c 2DD0     		beq	.L124
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 896              		.loc 1 209 5 discriminator 59 view .LVU201
+ 897 049e A2F58962 		sub	r2, r2, #1096
+ 898 04a2 9342     		cmp	r3, r2
+ 899 04a4 2BD0     		beq	.L125
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 900              		.loc 1 209 5 discriminator 61 view .LVU202
+ 901 04a6 02F58062 		add	r2, r2, #1024
+ 902 04aa 9342     		cmp	r3, r2
+ 903 04ac 2AD0     		beq	.L126
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 904              		.loc 1 209 5 discriminator 63 view .LVU203
+ 905 04ae A2F56872 		sub	r2, r2, #928
+ 906 04b2 9342     		cmp	r3, r2
+ 907 04b4 29D0     		beq	.L127
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 908              		.loc 1 209 5 discriminator 65 view .LVU204
+ 909 04b6 02F58062 		add	r2, r2, #1024
+ 910 04ba 9342     		cmp	r3, r2
+ 911 04bc 28D0     		beq	.L128
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 912              		.loc 1 209 5 discriminator 67 view .LVU205
+ 913 04be A2F58962 		sub	r2, r2, #1096
+ 914 04c2 9342     		cmp	r3, r2
+ 915 04c4 27D0     		beq	.L129
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 916              		.loc 1 209 5 discriminator 69 view .LVU206
+ 917 04c6 02F58062 		add	r2, r2, #1024
+ 918 04ca 9342     		cmp	r3, r2
+ 919 04cc 26D0     		beq	.L130
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 920              		.loc 1 209 5 discriminator 71 view .LVU207
+ 921 04ce A2F56872 		sub	r2, r2, #928
+ 922 04d2 9342     		cmp	r3, r2
+ 923 04d4 25D0     		beq	.L131
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 924              		.loc 1 209 5 discriminator 73 view .LVU208
+ 925 04d6 02F58062 		add	r2, r2, #1024
+ARM GAS  /tmp/ccNYL36S.s 			page 26
+
+
+ 926 04da 9342     		cmp	r3, r2
+ 927 04dc 02D0     		beq	.L310
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 928              		.loc 1 209 5 view .LVU209
+ 929 04de 4FF08062 		mov	r2, #67108864
+ 930 04e2 03E0     		b	.L30
+ 931              	.L310:
+ 932 04e4 4FF48012 		mov	r2, #1048576
+ 933 04e8 00E0     		b	.L30
+ 934              	.L121:
+ 935 04ea 1022     		movs	r2, #16
+ 936              	.L30:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 937              		.loc 1 209 5 discriminator 100 view .LVU210
+ 938 04ec 654B     		ldr	r3, .L327
+ 939 04ee 9A60     		str	r2, [r3, #8]
+ 940 04f0 64E7     		b	.L28
+ 941              	.L122:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 942              		.loc 1 209 5 view .LVU211
+ 943 04f2 1022     		movs	r2, #16
+ 944 04f4 FAE7     		b	.L30
+ 945              	.L123:
+ 946 04f6 1022     		movs	r2, #16
+ 947 04f8 F8E7     		b	.L30
+ 948              	.L124:
+ 949 04fa 1022     		movs	r2, #16
+ 950 04fc F6E7     		b	.L30
+ 951              	.L125:
+ 952 04fe 4FF48062 		mov	r2, #1024
+ 953 0502 F3E7     		b	.L30
+ 954              	.L126:
+ 955 0504 4FF48062 		mov	r2, #1024
+ 956 0508 F0E7     		b	.L30
+ 957              	.L127:
+ 958 050a 4FF48062 		mov	r2, #1024
+ 959 050e EDE7     		b	.L30
+ 960              	.L128:
+ 961 0510 4FF48062 		mov	r2, #1024
+ 962 0514 EAE7     		b	.L30
+ 963              	.L129:
+ 964 0516 4FF48012 		mov	r2, #1048576
+ 965 051a E7E7     		b	.L30
+ 966              	.L130:
+ 967 051c 4FF48012 		mov	r2, #1048576
+ 968 0520 E4E7     		b	.L30
+ 969              	.L131:
+ 970 0522 4FF48012 		mov	r2, #1048576
+ 971 0526 E1E7     		b	.L30
+ 972              	.L29:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 973              		.loc 1 209 5 discriminator 52 view .LVU212
+ 974 0528 594A     		ldr	r2, .L327+12
+ 975 052a 9342     		cmp	r3, r2
+ 976 052c 53D9     		bls	.L31
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 977              		.loc 1 209 5 discriminator 102 view .LVU213
+ARM GAS  /tmp/ccNYL36S.s 			page 27
+
+
+ 978 052e 483A     		subs	r2, r2, #72
+ 979 0530 9342     		cmp	r3, r2
+ 980 0532 31D0     		beq	.L133
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 981              		.loc 1 209 5 discriminator 104 view .LVU214
+ 982 0534 02F58062 		add	r2, r2, #1024
+ 983 0538 9342     		cmp	r3, r2
+ 984 053a 31D0     		beq	.L134
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 985              		.loc 1 209 5 discriminator 106 view .LVU215
+ 986 053c A2F56872 		sub	r2, r2, #928
+ 987 0540 9342     		cmp	r3, r2
+ 988 0542 2FD0     		beq	.L135
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 989              		.loc 1 209 5 discriminator 108 view .LVU216
+ 990 0544 02F58062 		add	r2, r2, #1024
+ 991 0548 9342     		cmp	r3, r2
+ 992 054a 2DD0     		beq	.L136
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 993              		.loc 1 209 5 discriminator 110 view .LVU217
+ 994 054c A2F58962 		sub	r2, r2, #1096
+ 995 0550 9342     		cmp	r3, r2
+ 996 0552 2BD0     		beq	.L137
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 997              		.loc 1 209 5 discriminator 112 view .LVU218
+ 998 0554 02F58062 		add	r2, r2, #1024
+ 999 0558 9342     		cmp	r3, r2
+ 1000 055a 2AD0     		beq	.L138
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1001              		.loc 1 209 5 discriminator 114 view .LVU219
+ 1002 055c A2F56872 		sub	r2, r2, #928
+ 1003 0560 9342     		cmp	r3, r2
+ 1004 0562 29D0     		beq	.L139
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1005              		.loc 1 209 5 discriminator 116 view .LVU220
+ 1006 0564 02F58062 		add	r2, r2, #1024
+ 1007 0568 9342     		cmp	r3, r2
+ 1008 056a 28D0     		beq	.L140
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1009              		.loc 1 209 5 discriminator 118 view .LVU221
+ 1010 056c A2F58962 		sub	r2, r2, #1096
+ 1011 0570 9342     		cmp	r3, r2
+ 1012 0572 27D0     		beq	.L141
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1013              		.loc 1 209 5 discriminator 120 view .LVU222
+ 1014 0574 02F58062 		add	r2, r2, #1024
+ 1015 0578 9342     		cmp	r3, r2
+ 1016 057a 26D0     		beq	.L142
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1017              		.loc 1 209 5 discriminator 122 view .LVU223
+ 1018 057c A2F56872 		sub	r2, r2, #928
+ 1019 0580 9342     		cmp	r3, r2
+ 1020 0582 25D0     		beq	.L143
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1021              		.loc 1 209 5 discriminator 124 view .LVU224
+ 1022 0584 02F58062 		add	r2, r2, #1024
+ 1023 0588 9342     		cmp	r3, r2
+ARM GAS  /tmp/ccNYL36S.s 			page 28
+
+
+ 1024 058a 02D0     		beq	.L311
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1025              		.loc 1 209 5 view .LVU225
+ 1026 058c 4FF08063 		mov	r3, #67108864
+ 1027 0590 03E0     		b	.L32
+ 1028              	.L311:
+ 1029 0592 4FF48013 		mov	r3, #1048576
+ 1030 0596 00E0     		b	.L32
+ 1031              	.L133:
+ 1032 0598 1023     		movs	r3, #16
+ 1033              	.L32:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1034              		.loc 1 209 5 discriminator 151 view .LVU226
+ 1035 059a 3E4A     		ldr	r2, .L327+16
+ 1036 059c D360     		str	r3, [r2, #12]
+ 1037 059e 0DE7     		b	.L28
+ 1038              	.L134:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1039              		.loc 1 209 5 view .LVU227
+ 1040 05a0 1023     		movs	r3, #16
+ 1041 05a2 FAE7     		b	.L32
+ 1042              	.L135:
+ 1043 05a4 1023     		movs	r3, #16
+ 1044 05a6 F8E7     		b	.L32
+ 1045              	.L136:
+ 1046 05a8 1023     		movs	r3, #16
+ 1047 05aa F6E7     		b	.L32
+ 1048              	.L137:
+ 1049 05ac 4FF48063 		mov	r3, #1024
+ 1050 05b0 F3E7     		b	.L32
+ 1051              	.L138:
+ 1052 05b2 4FF48063 		mov	r3, #1024
+ 1053 05b6 F0E7     		b	.L32
+ 1054              	.L139:
+ 1055 05b8 4FF48063 		mov	r3, #1024
+ 1056 05bc EDE7     		b	.L32
+ 1057              	.L140:
+ 1058 05be 4FF48063 		mov	r3, #1024
+ 1059 05c2 EAE7     		b	.L32
+ 1060              	.L141:
+ 1061 05c4 4FF48013 		mov	r3, #1048576
+ 1062 05c8 E7E7     		b	.L32
+ 1063              	.L142:
+ 1064 05ca 4FF48013 		mov	r3, #1048576
+ 1065 05ce E4E7     		b	.L32
+ 1066              	.L143:
+ 1067 05d0 4FF48013 		mov	r3, #1048576
+ 1068 05d4 E1E7     		b	.L32
+ 1069              	.L31:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1070              		.loc 1 209 5 discriminator 103 view .LVU228
+ 1071 05d6 304A     		ldr	r2, .L327+20
+ 1072 05d8 9342     		cmp	r3, r2
+ 1073 05da 31D0     		beq	.L145
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1074              		.loc 1 209 5 discriminator 153 view .LVU229
+ 1075 05dc 02F58062 		add	r2, r2, #1024
+ARM GAS  /tmp/ccNYL36S.s 			page 29
+
+
+ 1076 05e0 9342     		cmp	r3, r2
+ 1077 05e2 31D0     		beq	.L146
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1078              		.loc 1 209 5 discriminator 155 view .LVU230
+ 1079 05e4 A2F56872 		sub	r2, r2, #928
+ 1080 05e8 9342     		cmp	r3, r2
+ 1081 05ea 2FD0     		beq	.L147
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1082              		.loc 1 209 5 discriminator 157 view .LVU231
+ 1083 05ec 02F58062 		add	r2, r2, #1024
+ 1084 05f0 9342     		cmp	r3, r2
+ 1085 05f2 2DD0     		beq	.L148
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1086              		.loc 1 209 5 discriminator 159 view .LVU232
+ 1087 05f4 A2F58962 		sub	r2, r2, #1096
+ 1088 05f8 9342     		cmp	r3, r2
+ 1089 05fa 2BD0     		beq	.L149
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1090              		.loc 1 209 5 discriminator 161 view .LVU233
+ 1091 05fc 02F58062 		add	r2, r2, #1024
+ 1092 0600 9342     		cmp	r3, r2
+ 1093 0602 2AD0     		beq	.L150
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1094              		.loc 1 209 5 discriminator 163 view .LVU234
+ 1095 0604 A2F56872 		sub	r2, r2, #928
+ 1096 0608 9342     		cmp	r3, r2
+ 1097 060a 29D0     		beq	.L151
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1098              		.loc 1 209 5 discriminator 165 view .LVU235
+ 1099 060c 02F58062 		add	r2, r2, #1024
+ 1100 0610 9342     		cmp	r3, r2
+ 1101 0612 28D0     		beq	.L152
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1102              		.loc 1 209 5 discriminator 167 view .LVU236
+ 1103 0614 A2F58962 		sub	r2, r2, #1096
+ 1104 0618 9342     		cmp	r3, r2
+ 1105 061a 27D0     		beq	.L153
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1106              		.loc 1 209 5 discriminator 169 view .LVU237
+ 1107 061c 02F58062 		add	r2, r2, #1024
+ 1108 0620 9342     		cmp	r3, r2
+ 1109 0622 26D0     		beq	.L154
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1110              		.loc 1 209 5 discriminator 171 view .LVU238
+ 1111 0624 A2F56872 		sub	r2, r2, #928
+ 1112 0628 9342     		cmp	r3, r2
+ 1113 062a 25D0     		beq	.L155
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1114              		.loc 1 209 5 discriminator 173 view .LVU239
+ 1115 062c 02F58062 		add	r2, r2, #1024
+ 1116 0630 9342     		cmp	r3, r2
+ 1117 0632 02D0     		beq	.L312
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1118              		.loc 1 209 5 view .LVU240
+ 1119 0634 4FF08063 		mov	r3, #67108864
+ 1120 0638 03E0     		b	.L33
+ 1121              	.L312:
+ARM GAS  /tmp/ccNYL36S.s 			page 30
+
+
+ 1122 063a 4FF48013 		mov	r3, #1048576
+ 1123 063e 00E0     		b	.L33
+ 1124              	.L145:
+ 1125 0640 1023     		movs	r3, #16
+ 1126              	.L33:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1127              		.loc 1 209 5 discriminator 200 view .LVU241
+ 1128 0642 144A     		ldr	r2, .L327+16
+ 1129 0644 9360     		str	r3, [r2, #8]
+ 1130 0646 B9E6     		b	.L28
+ 1131              	.L146:
+ 209:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_TE_FLAG_INDEX(hdma));
+ 1132              		.loc 1 209 5 view .LVU242
+ 1133 0648 1023     		movs	r3, #16
+ 1134 064a FAE7     		b	.L33
+ 1135              	.L147:
+ 1136 064c 1023     		movs	r3, #16
+ 1137 064e F8E7     		b	.L33
+ 1138              	.L148:
+ 1139 0650 1023     		movs	r3, #16
+ 1140 0652 F6E7     		b	.L33
+ 1141              	.L149:
+ 1142 0654 4FF48063 		mov	r3, #1024
+ 1143 0658 F3E7     		b	.L33
+ 1144              	.L150:
+ 1145 065a 4FF48063 		mov	r3, #1024
+ 1146 065e F0E7     		b	.L33
+ 1147              	.L151:
+ 1148 0660 4FF48063 		mov	r3, #1024
+ 1149 0664 EDE7     		b	.L33
+ 1150              	.L152:
+ 1151 0666 4FF48063 		mov	r3, #1024
+ 1152 066a EAE7     		b	.L33
+ 1153              	.L153:
+ 1154 066c 4FF48013 		mov	r3, #1048576
+ 1155 0670 E7E7     		b	.L33
+ 1156              	.L154:
+ 1157 0672 4FF48013 		mov	r3, #1048576
+ 1158 0676 E4E7     		b	.L33
+ 1159              	.L155:
+ 1160 0678 4FF48013 		mov	r3, #1048576
+ 1161 067c E1E7     		b	.L33
+ 1162              	.L309:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1163              		.loc 1 210 5 view .LVU243
+ 1164 067e 4FF40022 		mov	r2, #524288
+ 1165 0682 0CE0     		b	.L35
+ 1166              	.L328:
+ 1167              		.align	2
+ 1168              	.L327:
+ 1169 0684 00640240 		.word	1073898496
+ 1170 0688 58640240 		.word	1073898584
+ 1171 068c B8600240 		.word	1073897656
+ 1172 0690 58600240 		.word	1073897560
+ 1173 0694 00600240 		.word	1073897472
+ 1174 0698 10600240 		.word	1073897488
+ 1175              	.L157:
+ARM GAS  /tmp/ccNYL36S.s 			page 31
+
+
+ 1176 069c 0822     		movs	r2, #8
+ 1177              	.L35:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1178              		.loc 1 210 5 discriminator 50 view .LVU244
+ 1179 069e B34B     		ldr	r3, .L329
+ 1180 06a0 DA60     		str	r2, [r3, #12]
+ 1181              	.L36:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1182              		.loc 1 211 5 is_stmt 1 view .LVU245
+ 1183 06a2 2368     		ldr	r3, [r4]
+ 1184 06a4 B24A     		ldr	r2, .L329+4
+ 1185 06a6 9342     		cmp	r3, r2
+ 1186 06a8 40F2CE81 		bls	.L42
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1187              		.loc 1 211 5 is_stmt 0 discriminator 1 view .LVU246
+ 1188 06ac A2F58962 		sub	r2, r2, #1096
+ 1189 06b0 9342     		cmp	r3, r2
+ 1190 06b2 00F06781 		beq	.L205
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1191              		.loc 1 211 5 discriminator 3 view .LVU247
+ 1192 06b6 02F58062 		add	r2, r2, #1024
+ 1193 06ba 9342     		cmp	r3, r2
+ 1194 06bc 00F0A981 		beq	.L206
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1195              		.loc 1 211 5 discriminator 5 view .LVU248
+ 1196 06c0 A2F56872 		sub	r2, r2, #928
+ 1197 06c4 9342     		cmp	r3, r2
+ 1198 06c6 00F0A681 		beq	.L207
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1199              		.loc 1 211 5 discriminator 7 view .LVU249
+ 1200 06ca 02F58062 		add	r2, r2, #1024
+ 1201 06ce 9342     		cmp	r3, r2
+ 1202 06d0 00F0A381 		beq	.L208
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1203              		.loc 1 211 5 discriminator 9 view .LVU250
+ 1204 06d4 A2F58962 		sub	r2, r2, #1096
+ 1205 06d8 9342     		cmp	r3, r2
+ 1206 06da 00F0A081 		beq	.L209
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1207              		.loc 1 211 5 discriminator 11 view .LVU251
+ 1208 06de 02F58062 		add	r2, r2, #1024
+ 1209 06e2 9342     		cmp	r3, r2
+ 1210 06e4 00F09E81 		beq	.L210
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1211              		.loc 1 211 5 discriminator 13 view .LVU252
+ 1212 06e8 A2F56872 		sub	r2, r2, #928
+ 1213 06ec 9342     		cmp	r3, r2
+ 1214 06ee 00F09C81 		beq	.L211
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1215              		.loc 1 211 5 discriminator 15 view .LVU253
+ 1216 06f2 02F58062 		add	r2, r2, #1024
+ 1217 06f6 9342     		cmp	r3, r2
+ 1218 06f8 00F09A81 		beq	.L212
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1219              		.loc 1 211 5 discriminator 17 view .LVU254
+ 1220 06fc A2F58962 		sub	r2, r2, #1096
+ 1221 0700 9342     		cmp	r3, r2
+ARM GAS  /tmp/ccNYL36S.s 			page 32
+
+
+ 1222 0702 00F09881 		beq	.L213
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1223              		.loc 1 211 5 discriminator 19 view .LVU255
+ 1224 0706 02F58062 		add	r2, r2, #1024
+ 1225 070a 9342     		cmp	r3, r2
+ 1226 070c 00F09681 		beq	.L214
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1227              		.loc 1 211 5 discriminator 21 view .LVU256
+ 1228 0710 A2F56872 		sub	r2, r2, #928
+ 1229 0714 9342     		cmp	r3, r2
+ 1230 0716 00F09481 		beq	.L215
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1231              		.loc 1 211 5 discriminator 23 view .LVU257
+ 1232 071a 02F58062 		add	r2, r2, #1024
+ 1233 071e 9342     		cmp	r3, r2
+ 1234 0720 00F02081 		beq	.L313
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1235              		.loc 1 211 5 view .LVU258
+ 1236 0724 4FF08072 		mov	r2, #16777216
+ 1237 0728 2DE1     		b	.L43
+ 1238              	.L158:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1239              		.loc 1 210 5 view .LVU259
+ 1240 072a 0822     		movs	r2, #8
+ 1241 072c B7E7     		b	.L35
+ 1242              	.L159:
+ 1243 072e 0822     		movs	r2, #8
+ 1244 0730 B5E7     		b	.L35
+ 1245              	.L160:
+ 1246 0732 0822     		movs	r2, #8
+ 1247 0734 B3E7     		b	.L35
+ 1248              	.L161:
+ 1249 0736 4FF40072 		mov	r2, #512
+ 1250 073a B0E7     		b	.L35
+ 1251              	.L162:
+ 1252 073c 4FF40072 		mov	r2, #512
+ 1253 0740 ADE7     		b	.L35
+ 1254              	.L163:
+ 1255 0742 4FF40072 		mov	r2, #512
+ 1256 0746 AAE7     		b	.L35
+ 1257              	.L164:
+ 1258 0748 4FF40072 		mov	r2, #512
+ 1259 074c A7E7     		b	.L35
+ 1260              	.L165:
+ 1261 074e 4FF40022 		mov	r2, #524288
+ 1262 0752 A4E7     		b	.L35
+ 1263              	.L166:
+ 1264 0754 4FF40022 		mov	r2, #524288
+ 1265 0758 A1E7     		b	.L35
+ 1266              	.L167:
+ 1267 075a 4FF40022 		mov	r2, #524288
+ 1268 075e 9EE7     		b	.L35
+ 1269              	.L34:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1270              		.loc 1 210 5 discriminator 2 view .LVU260
+ 1271 0760 844A     		ldr	r2, .L329+8
+ 1272 0762 9342     		cmp	r3, r2
+ARM GAS  /tmp/ccNYL36S.s 			page 33
+
+
+ 1273 0764 53D9     		bls	.L37
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1274              		.loc 1 210 5 discriminator 51 view .LVU261
+ 1275 0766 A83A     		subs	r2, r2, #168
+ 1276 0768 9342     		cmp	r3, r2
+ 1277 076a 31D0     		beq	.L169
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1278              		.loc 1 210 5 discriminator 53 view .LVU262
+ 1279 076c 02F58062 		add	r2, r2, #1024
+ 1280 0770 9342     		cmp	r3, r2
+ 1281 0772 31D0     		beq	.L170
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1282              		.loc 1 210 5 discriminator 55 view .LVU263
+ 1283 0774 A2F56872 		sub	r2, r2, #928
+ 1284 0778 9342     		cmp	r3, r2
+ 1285 077a 2FD0     		beq	.L171
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1286              		.loc 1 210 5 discriminator 57 view .LVU264
+ 1287 077c 02F58062 		add	r2, r2, #1024
+ 1288 0780 9342     		cmp	r3, r2
+ 1289 0782 2DD0     		beq	.L172
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1290              		.loc 1 210 5 discriminator 59 view .LVU265
+ 1291 0784 A2F58962 		sub	r2, r2, #1096
+ 1292 0788 9342     		cmp	r3, r2
+ 1293 078a 2BD0     		beq	.L173
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1294              		.loc 1 210 5 discriminator 61 view .LVU266
+ 1295 078c 02F58062 		add	r2, r2, #1024
+ 1296 0790 9342     		cmp	r3, r2
+ 1297 0792 2AD0     		beq	.L174
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1298              		.loc 1 210 5 discriminator 63 view .LVU267
+ 1299 0794 A2F56872 		sub	r2, r2, #928
+ 1300 0798 9342     		cmp	r3, r2
+ 1301 079a 29D0     		beq	.L175
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1302              		.loc 1 210 5 discriminator 65 view .LVU268
+ 1303 079c 02F58062 		add	r2, r2, #1024
+ 1304 07a0 9342     		cmp	r3, r2
+ 1305 07a2 28D0     		beq	.L176
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1306              		.loc 1 210 5 discriminator 67 view .LVU269
+ 1307 07a4 A2F58962 		sub	r2, r2, #1096
+ 1308 07a8 9342     		cmp	r3, r2
+ 1309 07aa 27D0     		beq	.L177
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1310              		.loc 1 210 5 discriminator 69 view .LVU270
+ 1311 07ac 02F58062 		add	r2, r2, #1024
+ 1312 07b0 9342     		cmp	r3, r2
+ 1313 07b2 26D0     		beq	.L178
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1314              		.loc 1 210 5 discriminator 71 view .LVU271
+ 1315 07b4 A2F56872 		sub	r2, r2, #928
+ 1316 07b8 9342     		cmp	r3, r2
+ 1317 07ba 25D0     		beq	.L179
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ARM GAS  /tmp/ccNYL36S.s 			page 34
+
+
+ 1318              		.loc 1 210 5 discriminator 73 view .LVU272
+ 1319 07bc 02F58062 		add	r2, r2, #1024
+ 1320 07c0 9342     		cmp	r3, r2
+ 1321 07c2 02D0     		beq	.L314
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1322              		.loc 1 210 5 view .LVU273
+ 1323 07c4 4FF00072 		mov	r2, #33554432
+ 1324 07c8 03E0     		b	.L38
+ 1325              	.L314:
+ 1326 07ca 4FF40022 		mov	r2, #524288
+ 1327 07ce 00E0     		b	.L38
+ 1328              	.L169:
+ 1329 07d0 0822     		movs	r2, #8
+ 1330              	.L38:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1331              		.loc 1 210 5 discriminator 100 view .LVU274
+ 1332 07d2 664B     		ldr	r3, .L329
+ 1333 07d4 9A60     		str	r2, [r3, #8]
+ 1334 07d6 64E7     		b	.L36
+ 1335              	.L170:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1336              		.loc 1 210 5 view .LVU275
+ 1337 07d8 0822     		movs	r2, #8
+ 1338 07da FAE7     		b	.L38
+ 1339              	.L171:
+ 1340 07dc 0822     		movs	r2, #8
+ 1341 07de F8E7     		b	.L38
+ 1342              	.L172:
+ 1343 07e0 0822     		movs	r2, #8
+ 1344 07e2 F6E7     		b	.L38
+ 1345              	.L173:
+ 1346 07e4 4FF40072 		mov	r2, #512
+ 1347 07e8 F3E7     		b	.L38
+ 1348              	.L174:
+ 1349 07ea 4FF40072 		mov	r2, #512
+ 1350 07ee F0E7     		b	.L38
+ 1351              	.L175:
+ 1352 07f0 4FF40072 		mov	r2, #512
+ 1353 07f4 EDE7     		b	.L38
+ 1354              	.L176:
+ 1355 07f6 4FF40072 		mov	r2, #512
+ 1356 07fa EAE7     		b	.L38
+ 1357              	.L177:
+ 1358 07fc 4FF40022 		mov	r2, #524288
+ 1359 0800 E7E7     		b	.L38
+ 1360              	.L178:
+ 1361 0802 4FF40022 		mov	r2, #524288
+ 1362 0806 E4E7     		b	.L38
+ 1363              	.L179:
+ 1364 0808 4FF40022 		mov	r2, #524288
+ 1365 080c E1E7     		b	.L38
+ 1366              	.L37:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1367              		.loc 1 210 5 discriminator 52 view .LVU276
+ 1368 080e 5A4A     		ldr	r2, .L329+12
+ 1369 0810 9342     		cmp	r3, r2
+ 1370 0812 53D9     		bls	.L39
+ARM GAS  /tmp/ccNYL36S.s 			page 35
+
+
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1371              		.loc 1 210 5 discriminator 102 view .LVU277
+ 1372 0814 483A     		subs	r2, r2, #72
+ 1373 0816 9342     		cmp	r3, r2
+ 1374 0818 31D0     		beq	.L181
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1375              		.loc 1 210 5 discriminator 104 view .LVU278
+ 1376 081a 02F58062 		add	r2, r2, #1024
+ 1377 081e 9342     		cmp	r3, r2
+ 1378 0820 31D0     		beq	.L182
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1379              		.loc 1 210 5 discriminator 106 view .LVU279
+ 1380 0822 A2F56872 		sub	r2, r2, #928
+ 1381 0826 9342     		cmp	r3, r2
+ 1382 0828 2FD0     		beq	.L183
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1383              		.loc 1 210 5 discriminator 108 view .LVU280
+ 1384 082a 02F58062 		add	r2, r2, #1024
+ 1385 082e 9342     		cmp	r3, r2
+ 1386 0830 2DD0     		beq	.L184
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1387              		.loc 1 210 5 discriminator 110 view .LVU281
+ 1388 0832 A2F58962 		sub	r2, r2, #1096
+ 1389 0836 9342     		cmp	r3, r2
+ 1390 0838 2BD0     		beq	.L185
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1391              		.loc 1 210 5 discriminator 112 view .LVU282
+ 1392 083a 02F58062 		add	r2, r2, #1024
+ 1393 083e 9342     		cmp	r3, r2
+ 1394 0840 2AD0     		beq	.L186
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1395              		.loc 1 210 5 discriminator 114 view .LVU283
+ 1396 0842 A2F56872 		sub	r2, r2, #928
+ 1397 0846 9342     		cmp	r3, r2
+ 1398 0848 29D0     		beq	.L187
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1399              		.loc 1 210 5 discriminator 116 view .LVU284
+ 1400 084a 02F58062 		add	r2, r2, #1024
+ 1401 084e 9342     		cmp	r3, r2
+ 1402 0850 28D0     		beq	.L188
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1403              		.loc 1 210 5 discriminator 118 view .LVU285
+ 1404 0852 A2F58962 		sub	r2, r2, #1096
+ 1405 0856 9342     		cmp	r3, r2
+ 1406 0858 27D0     		beq	.L189
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1407              		.loc 1 210 5 discriminator 120 view .LVU286
+ 1408 085a 02F58062 		add	r2, r2, #1024
+ 1409 085e 9342     		cmp	r3, r2
+ 1410 0860 26D0     		beq	.L190
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1411              		.loc 1 210 5 discriminator 122 view .LVU287
+ 1412 0862 A2F56872 		sub	r2, r2, #928
+ 1413 0866 9342     		cmp	r3, r2
+ 1414 0868 25D0     		beq	.L191
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1415              		.loc 1 210 5 discriminator 124 view .LVU288
+ARM GAS  /tmp/ccNYL36S.s 			page 36
+
+
+ 1416 086a 02F58062 		add	r2, r2, #1024
+ 1417 086e 9342     		cmp	r3, r2
+ 1418 0870 02D0     		beq	.L315
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1419              		.loc 1 210 5 view .LVU289
+ 1420 0872 4FF00073 		mov	r3, #33554432
+ 1421 0876 03E0     		b	.L40
+ 1422              	.L315:
+ 1423 0878 4FF40023 		mov	r3, #524288
+ 1424 087c 00E0     		b	.L40
+ 1425              	.L181:
+ 1426 087e 0823     		movs	r3, #8
+ 1427              	.L40:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1428              		.loc 1 210 5 discriminator 151 view .LVU290
+ 1429 0880 3E4A     		ldr	r2, .L329+16
+ 1430 0882 D360     		str	r3, [r2, #12]
+ 1431 0884 0DE7     		b	.L36
+ 1432              	.L182:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1433              		.loc 1 210 5 view .LVU291
+ 1434 0886 0823     		movs	r3, #8
+ 1435 0888 FAE7     		b	.L40
+ 1436              	.L183:
+ 1437 088a 0823     		movs	r3, #8
+ 1438 088c F8E7     		b	.L40
+ 1439              	.L184:
+ 1440 088e 0823     		movs	r3, #8
+ 1441 0890 F6E7     		b	.L40
+ 1442              	.L185:
+ 1443 0892 4FF40073 		mov	r3, #512
+ 1444 0896 F3E7     		b	.L40
+ 1445              	.L186:
+ 1446 0898 4FF40073 		mov	r3, #512
+ 1447 089c F0E7     		b	.L40
+ 1448              	.L187:
+ 1449 089e 4FF40073 		mov	r3, #512
+ 1450 08a2 EDE7     		b	.L40
+ 1451              	.L188:
+ 1452 08a4 4FF40073 		mov	r3, #512
+ 1453 08a8 EAE7     		b	.L40
+ 1454              	.L189:
+ 1455 08aa 4FF40023 		mov	r3, #524288
+ 1456 08ae E7E7     		b	.L40
+ 1457              	.L190:
+ 1458 08b0 4FF40023 		mov	r3, #524288
+ 1459 08b4 E4E7     		b	.L40
+ 1460              	.L191:
+ 1461 08b6 4FF40023 		mov	r3, #524288
+ 1462 08ba E1E7     		b	.L40
+ 1463              	.L39:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1464              		.loc 1 210 5 discriminator 103 view .LVU292
+ 1465 08bc 304A     		ldr	r2, .L329+20
+ 1466 08be 9342     		cmp	r3, r2
+ 1467 08c0 31D0     		beq	.L193
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ARM GAS  /tmp/ccNYL36S.s 			page 37
+
+
+ 1468              		.loc 1 210 5 discriminator 153 view .LVU293
+ 1469 08c2 02F58062 		add	r2, r2, #1024
+ 1470 08c6 9342     		cmp	r3, r2
+ 1471 08c8 31D0     		beq	.L194
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1472              		.loc 1 210 5 discriminator 155 view .LVU294
+ 1473 08ca A2F56872 		sub	r2, r2, #928
+ 1474 08ce 9342     		cmp	r3, r2
+ 1475 08d0 2FD0     		beq	.L195
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1476              		.loc 1 210 5 discriminator 157 view .LVU295
+ 1477 08d2 02F58062 		add	r2, r2, #1024
+ 1478 08d6 9342     		cmp	r3, r2
+ 1479 08d8 2DD0     		beq	.L196
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1480              		.loc 1 210 5 discriminator 159 view .LVU296
+ 1481 08da A2F58962 		sub	r2, r2, #1096
+ 1482 08de 9342     		cmp	r3, r2
+ 1483 08e0 2BD0     		beq	.L197
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1484              		.loc 1 210 5 discriminator 161 view .LVU297
+ 1485 08e2 02F58062 		add	r2, r2, #1024
+ 1486 08e6 9342     		cmp	r3, r2
+ 1487 08e8 2AD0     		beq	.L198
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1488              		.loc 1 210 5 discriminator 163 view .LVU298
+ 1489 08ea A2F56872 		sub	r2, r2, #928
+ 1490 08ee 9342     		cmp	r3, r2
+ 1491 08f0 29D0     		beq	.L199
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1492              		.loc 1 210 5 discriminator 165 view .LVU299
+ 1493 08f2 02F58062 		add	r2, r2, #1024
+ 1494 08f6 9342     		cmp	r3, r2
+ 1495 08f8 28D0     		beq	.L200
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1496              		.loc 1 210 5 discriminator 167 view .LVU300
+ 1497 08fa A2F58962 		sub	r2, r2, #1096
+ 1498 08fe 9342     		cmp	r3, r2
+ 1499 0900 27D0     		beq	.L201
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1500              		.loc 1 210 5 discriminator 169 view .LVU301
+ 1501 0902 02F58062 		add	r2, r2, #1024
+ 1502 0906 9342     		cmp	r3, r2
+ 1503 0908 26D0     		beq	.L202
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1504              		.loc 1 210 5 discriminator 171 view .LVU302
+ 1505 090a A2F56872 		sub	r2, r2, #928
+ 1506 090e 9342     		cmp	r3, r2
+ 1507 0910 25D0     		beq	.L203
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1508              		.loc 1 210 5 discriminator 173 view .LVU303
+ 1509 0912 02F58062 		add	r2, r2, #1024
+ 1510 0916 9342     		cmp	r3, r2
+ 1511 0918 02D0     		beq	.L316
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1512              		.loc 1 210 5 view .LVU304
+ 1513 091a 4FF00073 		mov	r3, #33554432
+ARM GAS  /tmp/ccNYL36S.s 			page 38
+
+
+ 1514 091e 03E0     		b	.L41
+ 1515              	.L316:
+ 1516 0920 4FF40023 		mov	r3, #524288
+ 1517 0924 00E0     		b	.L41
+ 1518              	.L193:
+ 1519 0926 0823     		movs	r3, #8
+ 1520              	.L41:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1521              		.loc 1 210 5 discriminator 200 view .LVU305
+ 1522 0928 144A     		ldr	r2, .L329+16
+ 1523 092a 9360     		str	r3, [r2, #8]
+ 1524 092c B9E6     		b	.L36
+ 1525              	.L194:
+ 210:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+ 1526              		.loc 1 210 5 view .LVU306
+ 1527 092e 0823     		movs	r3, #8
+ 1528 0930 FAE7     		b	.L41
+ 1529              	.L195:
+ 1530 0932 0823     		movs	r3, #8
+ 1531 0934 F8E7     		b	.L41
+ 1532              	.L196:
+ 1533 0936 0823     		movs	r3, #8
+ 1534 0938 F6E7     		b	.L41
+ 1535              	.L197:
+ 1536 093a 4FF40073 		mov	r3, #512
+ 1537 093e F3E7     		b	.L41
+ 1538              	.L198:
+ 1539 0940 4FF40073 		mov	r3, #512
+ 1540 0944 F0E7     		b	.L41
+ 1541              	.L199:
+ 1542 0946 4FF40073 		mov	r3, #512
+ 1543 094a EDE7     		b	.L41
+ 1544              	.L200:
+ 1545 094c 4FF40073 		mov	r3, #512
+ 1546 0950 EAE7     		b	.L41
+ 1547              	.L201:
+ 1548 0952 4FF40023 		mov	r3, #524288
+ 1549 0956 E7E7     		b	.L41
+ 1550              	.L202:
+ 1551 0958 4FF40023 		mov	r3, #524288
+ 1552 095c E4E7     		b	.L41
+ 1553              	.L203:
+ 1554 095e 4FF40023 		mov	r3, #524288
+ 1555 0962 E1E7     		b	.L41
+ 1556              	.L313:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1557              		.loc 1 211 5 view .LVU307
+ 1558 0964 4FF48022 		mov	r2, #262144
+ 1559 0968 0DE0     		b	.L43
+ 1560              	.L330:
+ 1561 096a 00BF     		.align	2
+ 1562              	.L329:
+ 1563 096c 00640240 		.word	1073898496
+ 1564 0970 58640240 		.word	1073898584
+ 1565 0974 B8600240 		.word	1073897656
+ 1566 0978 58600240 		.word	1073897560
+ 1567 097c 00600240 		.word	1073897472
+ARM GAS  /tmp/ccNYL36S.s 			page 39
+
+
+ 1568 0980 10600240 		.word	1073897488
+ 1569              	.L205:
+ 1570 0984 0422     		movs	r2, #4
+ 1571              	.L43:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1572              		.loc 1 211 5 discriminator 50 view .LVU308
+ 1573 0986 C24B     		ldr	r3, .L331
+ 1574 0988 DA60     		str	r2, [r3, #12]
+ 1575              	.L44:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1576              		.loc 1 212 5 is_stmt 1 view .LVU309
+ 1577 098a 2368     		ldr	r3, [r4]
+ 1578 098c C14A     		ldr	r2, .L331+4
+ 1579 098e 9342     		cmp	r3, r2
+ 1580 0990 40F2A181 		bls	.L50
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1581              		.loc 1 212 5 is_stmt 0 discriminator 1 view .LVU310
+ 1582 0994 A2F58962 		sub	r2, r2, #1096
+ 1583 0998 9342     		cmp	r3, r2
+ 1584 099a 00F05A81 		beq	.L253
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1585              		.loc 1 212 5 discriminator 3 view .LVU311
+ 1586 099e 02F58062 		add	r2, r2, #1024
+ 1587 09a2 9342     		cmp	r3, r2
+ 1588 09a4 00F08081 		beq	.L254
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1589              		.loc 1 212 5 discriminator 5 view .LVU312
+ 1590 09a8 A2F56872 		sub	r2, r2, #928
+ 1591 09ac 9342     		cmp	r3, r2
+ 1592 09ae 00F07D81 		beq	.L255
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1593              		.loc 1 212 5 discriminator 7 view .LVU313
+ 1594 09b2 02F58062 		add	r2, r2, #1024
+ 1595 09b6 9342     		cmp	r3, r2
+ 1596 09b8 00F07A81 		beq	.L256
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1597              		.loc 1 212 5 discriminator 9 view .LVU314
+ 1598 09bc A2F58962 		sub	r2, r2, #1096
+ 1599 09c0 9342     		cmp	r3, r2
+ 1600 09c2 00F07781 		beq	.L257
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1601              		.loc 1 212 5 discriminator 11 view .LVU315
+ 1602 09c6 02F58062 		add	r2, r2, #1024
+ 1603 09ca 9342     		cmp	r3, r2
+ 1604 09cc 00F07481 		beq	.L258
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1605              		.loc 1 212 5 discriminator 13 view .LVU316
+ 1606 09d0 A2F56872 		sub	r2, r2, #928
+ 1607 09d4 9342     		cmp	r3, r2
+ 1608 09d6 00F07181 		beq	.L259
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1609              		.loc 1 212 5 discriminator 15 view .LVU317
+ 1610 09da 02F58062 		add	r2, r2, #1024
+ 1611 09de 9342     		cmp	r3, r2
+ 1612 09e0 00F06E81 		beq	.L260
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1613              		.loc 1 212 5 discriminator 17 view .LVU318
+ARM GAS  /tmp/ccNYL36S.s 			page 40
+
+
+ 1614 09e4 A2F58962 		sub	r2, r2, #1096
+ 1615 09e8 9342     		cmp	r3, r2
+ 1616 09ea 00F06B81 		beq	.L261
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1617              		.loc 1 212 5 discriminator 19 view .LVU319
+ 1618 09ee 02F58062 		add	r2, r2, #1024
+ 1619 09f2 9342     		cmp	r3, r2
+ 1620 09f4 00F06981 		beq	.L262
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1621              		.loc 1 212 5 discriminator 21 view .LVU320
+ 1622 09f8 A2F56872 		sub	r2, r2, #928
+ 1623 09fc 9342     		cmp	r3, r2
+ 1624 09fe 00F06781 		beq	.L263
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1625              		.loc 1 212 5 discriminator 23 view .LVU321
+ 1626 0a02 02F58062 		add	r2, r2, #1024
+ 1627 0a06 9342     		cmp	r3, r2
+ 1628 0a08 00F02081 		beq	.L317
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1629              		.loc 1 212 5 view .LVU322
+ 1630 0a0c 4FF48002 		mov	r2, #4194304
+ 1631 0a10 20E1     		b	.L51
+ 1632              	.L206:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1633              		.loc 1 211 5 view .LVU323
+ 1634 0a12 0422     		movs	r2, #4
+ 1635 0a14 B7E7     		b	.L43
+ 1636              	.L207:
+ 1637 0a16 0422     		movs	r2, #4
+ 1638 0a18 B5E7     		b	.L43
+ 1639              	.L208:
+ 1640 0a1a 0422     		movs	r2, #4
+ 1641 0a1c B3E7     		b	.L43
+ 1642              	.L209:
+ 1643 0a1e 4FF48072 		mov	r2, #256
+ 1644 0a22 B0E7     		b	.L43
+ 1645              	.L210:
+ 1646 0a24 4FF48072 		mov	r2, #256
+ 1647 0a28 ADE7     		b	.L43
+ 1648              	.L211:
+ 1649 0a2a 4FF48072 		mov	r2, #256
+ 1650 0a2e AAE7     		b	.L43
+ 1651              	.L212:
+ 1652 0a30 4FF48072 		mov	r2, #256
+ 1653 0a34 A7E7     		b	.L43
+ 1654              	.L213:
+ 1655 0a36 4FF48022 		mov	r2, #262144
+ 1656 0a3a A4E7     		b	.L43
+ 1657              	.L214:
+ 1658 0a3c 4FF48022 		mov	r2, #262144
+ 1659 0a40 A1E7     		b	.L43
+ 1660              	.L215:
+ 1661 0a42 4FF48022 		mov	r2, #262144
+ 1662 0a46 9EE7     		b	.L43
+ 1663              	.L42:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1664              		.loc 1 211 5 discriminator 2 view .LVU324
+ARM GAS  /tmp/ccNYL36S.s 			page 41
+
+
+ 1665 0a48 934A     		ldr	r2, .L331+8
+ 1666 0a4a 9342     		cmp	r3, r2
+ 1667 0a4c 53D9     		bls	.L45
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1668              		.loc 1 211 5 discriminator 51 view .LVU325
+ 1669 0a4e A83A     		subs	r2, r2, #168
+ 1670 0a50 9342     		cmp	r3, r2
+ 1671 0a52 31D0     		beq	.L217
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1672              		.loc 1 211 5 discriminator 53 view .LVU326
+ 1673 0a54 02F58062 		add	r2, r2, #1024
+ 1674 0a58 9342     		cmp	r3, r2
+ 1675 0a5a 31D0     		beq	.L218
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1676              		.loc 1 211 5 discriminator 55 view .LVU327
+ 1677 0a5c A2F56872 		sub	r2, r2, #928
+ 1678 0a60 9342     		cmp	r3, r2
+ 1679 0a62 2FD0     		beq	.L219
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1680              		.loc 1 211 5 discriminator 57 view .LVU328
+ 1681 0a64 02F58062 		add	r2, r2, #1024
+ 1682 0a68 9342     		cmp	r3, r2
+ 1683 0a6a 2DD0     		beq	.L220
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1684              		.loc 1 211 5 discriminator 59 view .LVU329
+ 1685 0a6c A2F58962 		sub	r2, r2, #1096
+ 1686 0a70 9342     		cmp	r3, r2
+ 1687 0a72 2BD0     		beq	.L221
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1688              		.loc 1 211 5 discriminator 61 view .LVU330
+ 1689 0a74 02F58062 		add	r2, r2, #1024
+ 1690 0a78 9342     		cmp	r3, r2
+ 1691 0a7a 2AD0     		beq	.L222
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1692              		.loc 1 211 5 discriminator 63 view .LVU331
+ 1693 0a7c A2F56872 		sub	r2, r2, #928
+ 1694 0a80 9342     		cmp	r3, r2
+ 1695 0a82 29D0     		beq	.L223
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1696              		.loc 1 211 5 discriminator 65 view .LVU332
+ 1697 0a84 02F58062 		add	r2, r2, #1024
+ 1698 0a88 9342     		cmp	r3, r2
+ 1699 0a8a 28D0     		beq	.L224
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1700              		.loc 1 211 5 discriminator 67 view .LVU333
+ 1701 0a8c A2F58962 		sub	r2, r2, #1096
+ 1702 0a90 9342     		cmp	r3, r2
+ 1703 0a92 27D0     		beq	.L225
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1704              		.loc 1 211 5 discriminator 69 view .LVU334
+ 1705 0a94 02F58062 		add	r2, r2, #1024
+ 1706 0a98 9342     		cmp	r3, r2
+ 1707 0a9a 26D0     		beq	.L226
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1708              		.loc 1 211 5 discriminator 71 view .LVU335
+ 1709 0a9c A2F56872 		sub	r2, r2, #928
+ 1710 0aa0 9342     		cmp	r3, r2
+ARM GAS  /tmp/ccNYL36S.s 			page 42
+
+
+ 1711 0aa2 25D0     		beq	.L227
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1712              		.loc 1 211 5 discriminator 73 view .LVU336
+ 1713 0aa4 02F58062 		add	r2, r2, #1024
+ 1714 0aa8 9342     		cmp	r3, r2
+ 1715 0aaa 02D0     		beq	.L318
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1716              		.loc 1 211 5 view .LVU337
+ 1717 0aac 4FF08072 		mov	r2, #16777216
+ 1718 0ab0 03E0     		b	.L46
+ 1719              	.L318:
+ 1720 0ab2 4FF48022 		mov	r2, #262144
+ 1721 0ab6 00E0     		b	.L46
+ 1722              	.L217:
+ 1723 0ab8 0422     		movs	r2, #4
+ 1724              	.L46:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1725              		.loc 1 211 5 discriminator 100 view .LVU338
+ 1726 0aba 754B     		ldr	r3, .L331
+ 1727 0abc 9A60     		str	r2, [r3, #8]
+ 1728 0abe 64E7     		b	.L44
+ 1729              	.L218:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1730              		.loc 1 211 5 view .LVU339
+ 1731 0ac0 0422     		movs	r2, #4
+ 1732 0ac2 FAE7     		b	.L46
+ 1733              	.L219:
+ 1734 0ac4 0422     		movs	r2, #4
+ 1735 0ac6 F8E7     		b	.L46
+ 1736              	.L220:
+ 1737 0ac8 0422     		movs	r2, #4
+ 1738 0aca F6E7     		b	.L46
+ 1739              	.L221:
+ 1740 0acc 4FF48072 		mov	r2, #256
+ 1741 0ad0 F3E7     		b	.L46
+ 1742              	.L222:
+ 1743 0ad2 4FF48072 		mov	r2, #256
+ 1744 0ad6 F0E7     		b	.L46
+ 1745              	.L223:
+ 1746 0ad8 4FF48072 		mov	r2, #256
+ 1747 0adc EDE7     		b	.L46
+ 1748              	.L224:
+ 1749 0ade 4FF48072 		mov	r2, #256
+ 1750 0ae2 EAE7     		b	.L46
+ 1751              	.L225:
+ 1752 0ae4 4FF48022 		mov	r2, #262144
+ 1753 0ae8 E7E7     		b	.L46
+ 1754              	.L226:
+ 1755 0aea 4FF48022 		mov	r2, #262144
+ 1756 0aee E4E7     		b	.L46
+ 1757              	.L227:
+ 1758 0af0 4FF48022 		mov	r2, #262144
+ 1759 0af4 E1E7     		b	.L46
+ 1760              	.L45:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1761              		.loc 1 211 5 discriminator 52 view .LVU340
+ 1762 0af6 694A     		ldr	r2, .L331+12
+ARM GAS  /tmp/ccNYL36S.s 			page 43
+
+
+ 1763 0af8 9342     		cmp	r3, r2
+ 1764 0afa 53D9     		bls	.L47
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1765              		.loc 1 211 5 discriminator 102 view .LVU341
+ 1766 0afc 483A     		subs	r2, r2, #72
+ 1767 0afe 9342     		cmp	r3, r2
+ 1768 0b00 31D0     		beq	.L229
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1769              		.loc 1 211 5 discriminator 104 view .LVU342
+ 1770 0b02 02F58062 		add	r2, r2, #1024
+ 1771 0b06 9342     		cmp	r3, r2
+ 1772 0b08 31D0     		beq	.L230
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1773              		.loc 1 211 5 discriminator 106 view .LVU343
+ 1774 0b0a A2F56872 		sub	r2, r2, #928
+ 1775 0b0e 9342     		cmp	r3, r2
+ 1776 0b10 2FD0     		beq	.L231
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1777              		.loc 1 211 5 discriminator 108 view .LVU344
+ 1778 0b12 02F58062 		add	r2, r2, #1024
+ 1779 0b16 9342     		cmp	r3, r2
+ 1780 0b18 2DD0     		beq	.L232
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1781              		.loc 1 211 5 discriminator 110 view .LVU345
+ 1782 0b1a A2F58962 		sub	r2, r2, #1096
+ 1783 0b1e 9342     		cmp	r3, r2
+ 1784 0b20 2BD0     		beq	.L233
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1785              		.loc 1 211 5 discriminator 112 view .LVU346
+ 1786 0b22 02F58062 		add	r2, r2, #1024
+ 1787 0b26 9342     		cmp	r3, r2
+ 1788 0b28 2AD0     		beq	.L234
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1789              		.loc 1 211 5 discriminator 114 view .LVU347
+ 1790 0b2a A2F56872 		sub	r2, r2, #928
+ 1791 0b2e 9342     		cmp	r3, r2
+ 1792 0b30 29D0     		beq	.L235
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1793              		.loc 1 211 5 discriminator 116 view .LVU348
+ 1794 0b32 02F58062 		add	r2, r2, #1024
+ 1795 0b36 9342     		cmp	r3, r2
+ 1796 0b38 28D0     		beq	.L236
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1797              		.loc 1 211 5 discriminator 118 view .LVU349
+ 1798 0b3a A2F58962 		sub	r2, r2, #1096
+ 1799 0b3e 9342     		cmp	r3, r2
+ 1800 0b40 27D0     		beq	.L237
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1801              		.loc 1 211 5 discriminator 120 view .LVU350
+ 1802 0b42 02F58062 		add	r2, r2, #1024
+ 1803 0b46 9342     		cmp	r3, r2
+ 1804 0b48 26D0     		beq	.L238
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1805              		.loc 1 211 5 discriminator 122 view .LVU351
+ 1806 0b4a A2F56872 		sub	r2, r2, #928
+ 1807 0b4e 9342     		cmp	r3, r2
+ 1808 0b50 25D0     		beq	.L239
+ARM GAS  /tmp/ccNYL36S.s 			page 44
+
+
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1809              		.loc 1 211 5 discriminator 124 view .LVU352
+ 1810 0b52 02F58062 		add	r2, r2, #1024
+ 1811 0b56 9342     		cmp	r3, r2
+ 1812 0b58 02D0     		beq	.L319
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1813              		.loc 1 211 5 view .LVU353
+ 1814 0b5a 4FF08073 		mov	r3, #16777216
+ 1815 0b5e 03E0     		b	.L48
+ 1816              	.L319:
+ 1817 0b60 4FF48023 		mov	r3, #262144
+ 1818 0b64 00E0     		b	.L48
+ 1819              	.L229:
+ 1820 0b66 0423     		movs	r3, #4
+ 1821              	.L48:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1822              		.loc 1 211 5 discriminator 151 view .LVU354
+ 1823 0b68 4D4A     		ldr	r2, .L331+16
+ 1824 0b6a D360     		str	r3, [r2, #12]
+ 1825 0b6c 0DE7     		b	.L44
+ 1826              	.L230:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1827              		.loc 1 211 5 view .LVU355
+ 1828 0b6e 0423     		movs	r3, #4
+ 1829 0b70 FAE7     		b	.L48
+ 1830              	.L231:
+ 1831 0b72 0423     		movs	r3, #4
+ 1832 0b74 F8E7     		b	.L48
+ 1833              	.L232:
+ 1834 0b76 0423     		movs	r3, #4
+ 1835 0b78 F6E7     		b	.L48
+ 1836              	.L233:
+ 1837 0b7a 4FF48073 		mov	r3, #256
+ 1838 0b7e F3E7     		b	.L48
+ 1839              	.L234:
+ 1840 0b80 4FF48073 		mov	r3, #256
+ 1841 0b84 F0E7     		b	.L48
+ 1842              	.L235:
+ 1843 0b86 4FF48073 		mov	r3, #256
+ 1844 0b8a EDE7     		b	.L48
+ 1845              	.L236:
+ 1846 0b8c 4FF48073 		mov	r3, #256
+ 1847 0b90 EAE7     		b	.L48
+ 1848              	.L237:
+ 1849 0b92 4FF48023 		mov	r3, #262144
+ 1850 0b96 E7E7     		b	.L48
+ 1851              	.L238:
+ 1852 0b98 4FF48023 		mov	r3, #262144
+ 1853 0b9c E4E7     		b	.L48
+ 1854              	.L239:
+ 1855 0b9e 4FF48023 		mov	r3, #262144
+ 1856 0ba2 E1E7     		b	.L48
+ 1857              	.L47:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1858              		.loc 1 211 5 discriminator 103 view .LVU356
+ 1859 0ba4 3F4A     		ldr	r2, .L331+20
+ 1860 0ba6 9342     		cmp	r3, r2
+ARM GAS  /tmp/ccNYL36S.s 			page 45
+
+
+ 1861 0ba8 31D0     		beq	.L241
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1862              		.loc 1 211 5 discriminator 153 view .LVU357
+ 1863 0baa 02F58062 		add	r2, r2, #1024
+ 1864 0bae 9342     		cmp	r3, r2
+ 1865 0bb0 31D0     		beq	.L242
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1866              		.loc 1 211 5 discriminator 155 view .LVU358
+ 1867 0bb2 A2F56872 		sub	r2, r2, #928
+ 1868 0bb6 9342     		cmp	r3, r2
+ 1869 0bb8 2FD0     		beq	.L243
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1870              		.loc 1 211 5 discriminator 157 view .LVU359
+ 1871 0bba 02F58062 		add	r2, r2, #1024
+ 1872 0bbe 9342     		cmp	r3, r2
+ 1873 0bc0 2DD0     		beq	.L244
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1874              		.loc 1 211 5 discriminator 159 view .LVU360
+ 1875 0bc2 A2F58962 		sub	r2, r2, #1096
+ 1876 0bc6 9342     		cmp	r3, r2
+ 1877 0bc8 2BD0     		beq	.L245
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1878              		.loc 1 211 5 discriminator 161 view .LVU361
+ 1879 0bca 02F58062 		add	r2, r2, #1024
+ 1880 0bce 9342     		cmp	r3, r2
+ 1881 0bd0 2AD0     		beq	.L246
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1882              		.loc 1 211 5 discriminator 163 view .LVU362
+ 1883 0bd2 A2F56872 		sub	r2, r2, #928
+ 1884 0bd6 9342     		cmp	r3, r2
+ 1885 0bd8 29D0     		beq	.L247
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1886              		.loc 1 211 5 discriminator 165 view .LVU363
+ 1887 0bda 02F58062 		add	r2, r2, #1024
+ 1888 0bde 9342     		cmp	r3, r2
+ 1889 0be0 28D0     		beq	.L248
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1890              		.loc 1 211 5 discriminator 167 view .LVU364
+ 1891 0be2 A2F58962 		sub	r2, r2, #1096
+ 1892 0be6 9342     		cmp	r3, r2
+ 1893 0be8 27D0     		beq	.L249
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1894              		.loc 1 211 5 discriminator 169 view .LVU365
+ 1895 0bea 02F58062 		add	r2, r2, #1024
+ 1896 0bee 9342     		cmp	r3, r2
+ 1897 0bf0 26D0     		beq	.L250
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1898              		.loc 1 211 5 discriminator 171 view .LVU366
+ 1899 0bf2 A2F56872 		sub	r2, r2, #928
+ 1900 0bf6 9342     		cmp	r3, r2
+ 1901 0bf8 25D0     		beq	.L251
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1902              		.loc 1 211 5 discriminator 173 view .LVU367
+ 1903 0bfa 02F58062 		add	r2, r2, #1024
+ 1904 0bfe 9342     		cmp	r3, r2
+ 1905 0c00 02D0     		beq	.L320
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ARM GAS  /tmp/ccNYL36S.s 			page 46
+
+
+ 1906              		.loc 1 211 5 view .LVU368
+ 1907 0c02 4FF08073 		mov	r3, #16777216
+ 1908 0c06 03E0     		b	.L49
+ 1909              	.L320:
+ 1910 0c08 4FF48023 		mov	r3, #262144
+ 1911 0c0c 00E0     		b	.L49
+ 1912              	.L241:
+ 1913 0c0e 0423     		movs	r3, #4
+ 1914              	.L49:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1915              		.loc 1 211 5 discriminator 200 view .LVU369
+ 1916 0c10 234A     		ldr	r2, .L331+16
+ 1917 0c12 9360     		str	r3, [r2, #8]
+ 1918 0c14 B9E6     		b	.L44
+ 1919              	.L242:
+ 211:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     __HAL_DMA_CLEAR_FLAG (hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+ 1920              		.loc 1 211 5 view .LVU370
+ 1921 0c16 0423     		movs	r3, #4
+ 1922 0c18 FAE7     		b	.L49
+ 1923              	.L243:
+ 1924 0c1a 0423     		movs	r3, #4
+ 1925 0c1c F8E7     		b	.L49
+ 1926              	.L244:
+ 1927 0c1e 0423     		movs	r3, #4
+ 1928 0c20 F6E7     		b	.L49
+ 1929              	.L245:
+ 1930 0c22 4FF48073 		mov	r3, #256
+ 1931 0c26 F3E7     		b	.L49
+ 1932              	.L246:
+ 1933 0c28 4FF48073 		mov	r3, #256
+ 1934 0c2c F0E7     		b	.L49
+ 1935              	.L247:
+ 1936 0c2e 4FF48073 		mov	r3, #256
+ 1937 0c32 EDE7     		b	.L49
+ 1938              	.L248:
+ 1939 0c34 4FF48073 		mov	r3, #256
+ 1940 0c38 EAE7     		b	.L49
+ 1941              	.L249:
+ 1942 0c3a 4FF48023 		mov	r3, #262144
+ 1943 0c3e E7E7     		b	.L49
+ 1944              	.L250:
+ 1945 0c40 4FF48023 		mov	r3, #262144
+ 1946 0c44 E4E7     		b	.L49
+ 1947              	.L251:
+ 1948 0c46 4FF48023 		mov	r3, #262144
+ 1949 0c4a E1E7     		b	.L49
+ 1950              	.L317:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1951              		.loc 1 212 5 view .LVU371
+ 1952 0c4c 4FF48032 		mov	r2, #65536
+ 1953 0c50 00E0     		b	.L51
+ 1954              	.L253:
+ 1955 0c52 0122     		movs	r2, #1
+ 1956              	.L51:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1957              		.loc 1 212 5 discriminator 50 view .LVU372
+ 1958 0c54 0E4B     		ldr	r3, .L331
+ARM GAS  /tmp/ccNYL36S.s 			page 47
+
+
+ 1959 0c56 DA60     		str	r2, [r3, #12]
+ 1960              	.L52:
+ 215:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->FCR |= DMA_IT_FE;
+ 1961              		.loc 1 215 5 is_stmt 1 view .LVU373
+ 215:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->FCR |= DMA_IT_FE;
+ 1962              		.loc 1 215 9 is_stmt 0 view .LVU374
+ 1963 0c58 2268     		ldr	r2, [r4]
+ 215:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     hdma->Instance->FCR |= DMA_IT_FE;
+ 1964              		.loc 1 215 25 view .LVU375
+ 1965 0c5a 1368     		ldr	r3, [r2]
+ 1966 0c5c 43F01603 		orr	r3, r3, #22
+ 1967 0c60 1360     		str	r3, [r2]
+ 216:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1968              		.loc 1 216 5 is_stmt 1 view .LVU376
+ 216:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1969              		.loc 1 216 9 is_stmt 0 view .LVU377
+ 1970 0c62 2268     		ldr	r2, [r4]
+ 216:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 1971              		.loc 1 216 25 view .LVU378
+ 1972 0c64 5369     		ldr	r3, [r2, #20]
+ 1973 0c66 43F08003 		orr	r3, r3, #128
+ 1974 0c6a 5361     		str	r3, [r2, #20]
+ 218:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 1975              		.loc 1 218 5 is_stmt 1 view .LVU379
+ 218:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 1976              		.loc 1 218 13 is_stmt 0 view .LVU380
+ 1977 0c6c 236C     		ldr	r3, [r4, #64]
+ 218:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 1978              		.loc 1 218 7 view .LVU381
+ 1979 0c6e 002B     		cmp	r3, #0
+ 1980 0c70 00F02781 		beq	.L321
+ 1981              	.L58:
+ 220:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 1982              		.loc 1 220 7 is_stmt 1 view .LVU382
+ 220:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 1983              		.loc 1 220 11 is_stmt 0 view .LVU383
+ 1984 0c74 2268     		ldr	r2, [r4]
+ 220:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     }
+ 1985              		.loc 1 220 27 view .LVU384
+ 1986 0c76 1368     		ldr	r3, [r2]
+ 1987 0c78 43F00803 		orr	r3, r3, #8
+ 1988 0c7c 1360     		str	r3, [r2]
+ 1989              	.L59:
+ 224:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 1990              		.loc 1 224 5 is_stmt 1 view .LVU385
+ 1991 0c7e 2268     		ldr	r2, [r4]
+ 1992 0c80 1368     		ldr	r3, [r2]
+ 1993 0c82 43F00103 		orr	r3, r3, #1
+ 1994 0c86 1360     		str	r3, [r2]
+ 175:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 1995              		.loc 1 175 21 is_stmt 0 view .LVU386
+ 1996 0c88 0020     		movs	r0, #0
+ 1997 0c8a FFF7CEB9 		b	.L16
+ 1998              	.L332:
+ 1999 0c8e 00BF     		.align	2
+ 2000              	.L331:
+ 2001 0c90 00640240 		.word	1073898496
+ARM GAS  /tmp/ccNYL36S.s 			page 48
+
+
+ 2002 0c94 58640240 		.word	1073898584
+ 2003 0c98 B8600240 		.word	1073897656
+ 2004 0c9c 58600240 		.word	1073897560
+ 2005 0ca0 00600240 		.word	1073897472
+ 2006 0ca4 10600240 		.word	1073897488
+ 2007              	.L254:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2008              		.loc 1 212 5 view .LVU387
+ 2009 0ca8 0122     		movs	r2, #1
+ 2010 0caa D3E7     		b	.L51
+ 2011              	.L255:
+ 2012 0cac 0122     		movs	r2, #1
+ 2013 0cae D1E7     		b	.L51
+ 2014              	.L256:
+ 2015 0cb0 0122     		movs	r2, #1
+ 2016 0cb2 CFE7     		b	.L51
+ 2017              	.L257:
+ 2018 0cb4 4022     		movs	r2, #64
+ 2019 0cb6 CDE7     		b	.L51
+ 2020              	.L258:
+ 2021 0cb8 4022     		movs	r2, #64
+ 2022 0cba CBE7     		b	.L51
+ 2023              	.L259:
+ 2024 0cbc 4022     		movs	r2, #64
+ 2025 0cbe C9E7     		b	.L51
+ 2026              	.L260:
+ 2027 0cc0 4022     		movs	r2, #64
+ 2028 0cc2 C7E7     		b	.L51
+ 2029              	.L261:
+ 2030 0cc4 4FF48032 		mov	r2, #65536
+ 2031 0cc8 C4E7     		b	.L51
+ 2032              	.L262:
+ 2033 0cca 4FF48032 		mov	r2, #65536
+ 2034 0cce C1E7     		b	.L51
+ 2035              	.L263:
+ 2036 0cd0 4FF48032 		mov	r2, #65536
+ 2037 0cd4 BEE7     		b	.L51
+ 2038              	.L50:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2039              		.loc 1 212 5 discriminator 2 view .LVU388
+ 2040 0cd6 7F4A     		ldr	r2, .L333
+ 2041 0cd8 9342     		cmp	r3, r2
+ 2042 0cda 4FD9     		bls	.L53
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2043              		.loc 1 212 5 discriminator 51 view .LVU389
+ 2044 0cdc A83A     		subs	r2, r2, #168
+ 2045 0cde 9342     		cmp	r3, r2
+ 2046 0ce0 31D0     		beq	.L265
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2047              		.loc 1 212 5 discriminator 53 view .LVU390
+ 2048 0ce2 02F58062 		add	r2, r2, #1024
+ 2049 0ce6 9342     		cmp	r3, r2
+ 2050 0ce8 31D0     		beq	.L266
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2051              		.loc 1 212 5 discriminator 55 view .LVU391
+ 2052 0cea A2F56872 		sub	r2, r2, #928
+ 2053 0cee 9342     		cmp	r3, r2
+ARM GAS  /tmp/ccNYL36S.s 			page 49
+
+
+ 2054 0cf0 2FD0     		beq	.L267
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2055              		.loc 1 212 5 discriminator 57 view .LVU392
+ 2056 0cf2 02F58062 		add	r2, r2, #1024
+ 2057 0cf6 9342     		cmp	r3, r2
+ 2058 0cf8 2DD0     		beq	.L268
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2059              		.loc 1 212 5 discriminator 59 view .LVU393
+ 2060 0cfa A2F58962 		sub	r2, r2, #1096
+ 2061 0cfe 9342     		cmp	r3, r2
+ 2062 0d00 2BD0     		beq	.L269
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2063              		.loc 1 212 5 discriminator 61 view .LVU394
+ 2064 0d02 02F58062 		add	r2, r2, #1024
+ 2065 0d06 9342     		cmp	r3, r2
+ 2066 0d08 29D0     		beq	.L270
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2067              		.loc 1 212 5 discriminator 63 view .LVU395
+ 2068 0d0a A2F56872 		sub	r2, r2, #928
+ 2069 0d0e 9342     		cmp	r3, r2
+ 2070 0d10 27D0     		beq	.L271
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2071              		.loc 1 212 5 discriminator 65 view .LVU396
+ 2072 0d12 02F58062 		add	r2, r2, #1024
+ 2073 0d16 9342     		cmp	r3, r2
+ 2074 0d18 25D0     		beq	.L272
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2075              		.loc 1 212 5 discriminator 67 view .LVU397
+ 2076 0d1a A2F58962 		sub	r2, r2, #1096
+ 2077 0d1e 9342     		cmp	r3, r2
+ 2078 0d20 23D0     		beq	.L273
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2079              		.loc 1 212 5 discriminator 69 view .LVU398
+ 2080 0d22 02F58062 		add	r2, r2, #1024
+ 2081 0d26 9342     		cmp	r3, r2
+ 2082 0d28 22D0     		beq	.L274
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2083              		.loc 1 212 5 discriminator 71 view .LVU399
+ 2084 0d2a A2F56872 		sub	r2, r2, #928
+ 2085 0d2e 9342     		cmp	r3, r2
+ 2086 0d30 21D0     		beq	.L275
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2087              		.loc 1 212 5 discriminator 73 view .LVU400
+ 2088 0d32 02F58062 		add	r2, r2, #1024
+ 2089 0d36 9342     		cmp	r3, r2
+ 2090 0d38 02D0     		beq	.L322
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2091              		.loc 1 212 5 view .LVU401
+ 2092 0d3a 4FF48002 		mov	r2, #4194304
+ 2093 0d3e 03E0     		b	.L54
+ 2094              	.L322:
+ 2095 0d40 4FF48032 		mov	r2, #65536
+ 2096 0d44 00E0     		b	.L54
+ 2097              	.L265:
+ 2098 0d46 0122     		movs	r2, #1
+ 2099              	.L54:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ARM GAS  /tmp/ccNYL36S.s 			page 50
+
+
+ 2100              		.loc 1 212 5 discriminator 100 view .LVU402
+ 2101 0d48 634B     		ldr	r3, .L333+4
+ 2102 0d4a 9A60     		str	r2, [r3, #8]
+ 2103 0d4c 84E7     		b	.L52
+ 2104              	.L266:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2105              		.loc 1 212 5 view .LVU403
+ 2106 0d4e 0122     		movs	r2, #1
+ 2107 0d50 FAE7     		b	.L54
+ 2108              	.L267:
+ 2109 0d52 0122     		movs	r2, #1
+ 2110 0d54 F8E7     		b	.L54
+ 2111              	.L268:
+ 2112 0d56 0122     		movs	r2, #1
+ 2113 0d58 F6E7     		b	.L54
+ 2114              	.L269:
+ 2115 0d5a 4022     		movs	r2, #64
+ 2116 0d5c F4E7     		b	.L54
+ 2117              	.L270:
+ 2118 0d5e 4022     		movs	r2, #64
+ 2119 0d60 F2E7     		b	.L54
+ 2120              	.L271:
+ 2121 0d62 4022     		movs	r2, #64
+ 2122 0d64 F0E7     		b	.L54
+ 2123              	.L272:
+ 2124 0d66 4022     		movs	r2, #64
+ 2125 0d68 EEE7     		b	.L54
+ 2126              	.L273:
+ 2127 0d6a 4FF48032 		mov	r2, #65536
+ 2128 0d6e EBE7     		b	.L54
+ 2129              	.L274:
+ 2130 0d70 4FF48032 		mov	r2, #65536
+ 2131 0d74 E8E7     		b	.L54
+ 2132              	.L275:
+ 2133 0d76 4FF48032 		mov	r2, #65536
+ 2134 0d7a E5E7     		b	.L54
+ 2135              	.L53:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2136              		.loc 1 212 5 discriminator 52 view .LVU404
+ 2137 0d7c 574A     		ldr	r2, .L333+8
+ 2138 0d7e 9342     		cmp	r3, r2
+ 2139 0d80 4FD9     		bls	.L55
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2140              		.loc 1 212 5 discriminator 102 view .LVU405
+ 2141 0d82 483A     		subs	r2, r2, #72
+ 2142 0d84 9342     		cmp	r3, r2
+ 2143 0d86 31D0     		beq	.L277
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2144              		.loc 1 212 5 discriminator 104 view .LVU406
+ 2145 0d88 02F58062 		add	r2, r2, #1024
+ 2146 0d8c 9342     		cmp	r3, r2
+ 2147 0d8e 31D0     		beq	.L278
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2148              		.loc 1 212 5 discriminator 106 view .LVU407
+ 2149 0d90 A2F56872 		sub	r2, r2, #928
+ 2150 0d94 9342     		cmp	r3, r2
+ 2151 0d96 2FD0     		beq	.L279
+ARM GAS  /tmp/ccNYL36S.s 			page 51
+
+
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2152              		.loc 1 212 5 discriminator 108 view .LVU408
+ 2153 0d98 02F58062 		add	r2, r2, #1024
+ 2154 0d9c 9342     		cmp	r3, r2
+ 2155 0d9e 2DD0     		beq	.L280
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2156              		.loc 1 212 5 discriminator 110 view .LVU409
+ 2157 0da0 A2F58962 		sub	r2, r2, #1096
+ 2158 0da4 9342     		cmp	r3, r2
+ 2159 0da6 2BD0     		beq	.L281
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2160              		.loc 1 212 5 discriminator 112 view .LVU410
+ 2161 0da8 02F58062 		add	r2, r2, #1024
+ 2162 0dac 9342     		cmp	r3, r2
+ 2163 0dae 29D0     		beq	.L282
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2164              		.loc 1 212 5 discriminator 114 view .LVU411
+ 2165 0db0 A2F56872 		sub	r2, r2, #928
+ 2166 0db4 9342     		cmp	r3, r2
+ 2167 0db6 27D0     		beq	.L283
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2168              		.loc 1 212 5 discriminator 116 view .LVU412
+ 2169 0db8 02F58062 		add	r2, r2, #1024
+ 2170 0dbc 9342     		cmp	r3, r2
+ 2171 0dbe 25D0     		beq	.L284
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2172              		.loc 1 212 5 discriminator 118 view .LVU413
+ 2173 0dc0 A2F58962 		sub	r2, r2, #1096
+ 2174 0dc4 9342     		cmp	r3, r2
+ 2175 0dc6 23D0     		beq	.L285
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2176              		.loc 1 212 5 discriminator 120 view .LVU414
+ 2177 0dc8 02F58062 		add	r2, r2, #1024
+ 2178 0dcc 9342     		cmp	r3, r2
+ 2179 0dce 22D0     		beq	.L286
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2180              		.loc 1 212 5 discriminator 122 view .LVU415
+ 2181 0dd0 A2F56872 		sub	r2, r2, #928
+ 2182 0dd4 9342     		cmp	r3, r2
+ 2183 0dd6 21D0     		beq	.L287
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2184              		.loc 1 212 5 discriminator 124 view .LVU416
+ 2185 0dd8 02F58062 		add	r2, r2, #1024
+ 2186 0ddc 9342     		cmp	r3, r2
+ 2187 0dde 02D0     		beq	.L323
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2188              		.loc 1 212 5 view .LVU417
+ 2189 0de0 4FF48003 		mov	r3, #4194304
+ 2190 0de4 03E0     		b	.L56
+ 2191              	.L323:
+ 2192 0de6 4FF48033 		mov	r3, #65536
+ 2193 0dea 00E0     		b	.L56
+ 2194              	.L277:
+ 2195 0dec 0123     		movs	r3, #1
+ 2196              	.L56:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2197              		.loc 1 212 5 discriminator 151 view .LVU418
+ARM GAS  /tmp/ccNYL36S.s 			page 52
+
+
+ 2198 0dee 3C4A     		ldr	r2, .L333+12
+ 2199 0df0 D360     		str	r3, [r2, #12]
+ 2200 0df2 31E7     		b	.L52
+ 2201              	.L278:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2202              		.loc 1 212 5 view .LVU419
+ 2203 0df4 0123     		movs	r3, #1
+ 2204 0df6 FAE7     		b	.L56
+ 2205              	.L279:
+ 2206 0df8 0123     		movs	r3, #1
+ 2207 0dfa F8E7     		b	.L56
+ 2208              	.L280:
+ 2209 0dfc 0123     		movs	r3, #1
+ 2210 0dfe F6E7     		b	.L56
+ 2211              	.L281:
+ 2212 0e00 4023     		movs	r3, #64
+ 2213 0e02 F4E7     		b	.L56
+ 2214              	.L282:
+ 2215 0e04 4023     		movs	r3, #64
+ 2216 0e06 F2E7     		b	.L56
+ 2217              	.L283:
+ 2218 0e08 4023     		movs	r3, #64
+ 2219 0e0a F0E7     		b	.L56
+ 2220              	.L284:
+ 2221 0e0c 4023     		movs	r3, #64
+ 2222 0e0e EEE7     		b	.L56
+ 2223              	.L285:
+ 2224 0e10 4FF48033 		mov	r3, #65536
+ 2225 0e14 EBE7     		b	.L56
+ 2226              	.L286:
+ 2227 0e16 4FF48033 		mov	r3, #65536
+ 2228 0e1a E8E7     		b	.L56
+ 2229              	.L287:
+ 2230 0e1c 4FF48033 		mov	r3, #65536
+ 2231 0e20 E5E7     		b	.L56
+ 2232              	.L55:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2233              		.loc 1 212 5 discriminator 103 view .LVU420
+ 2234 0e22 304A     		ldr	r2, .L333+16
+ 2235 0e24 9342     		cmp	r3, r2
+ 2236 0e26 31D0     		beq	.L289
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2237              		.loc 1 212 5 discriminator 153 view .LVU421
+ 2238 0e28 02F58062 		add	r2, r2, #1024
+ 2239 0e2c 9342     		cmp	r3, r2
+ 2240 0e2e 31D0     		beq	.L290
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2241              		.loc 1 212 5 discriminator 155 view .LVU422
+ 2242 0e30 A2F56872 		sub	r2, r2, #928
+ 2243 0e34 9342     		cmp	r3, r2
+ 2244 0e36 2FD0     		beq	.L291
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2245              		.loc 1 212 5 discriminator 157 view .LVU423
+ 2246 0e38 02F58062 		add	r2, r2, #1024
+ 2247 0e3c 9342     		cmp	r3, r2
+ 2248 0e3e 2DD0     		beq	.L292
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ARM GAS  /tmp/ccNYL36S.s 			page 53
+
+
+ 2249              		.loc 1 212 5 discriminator 159 view .LVU424
+ 2250 0e40 A2F58962 		sub	r2, r2, #1096
+ 2251 0e44 9342     		cmp	r3, r2
+ 2252 0e46 2BD0     		beq	.L293
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2253              		.loc 1 212 5 discriminator 161 view .LVU425
+ 2254 0e48 02F58062 		add	r2, r2, #1024
+ 2255 0e4c 9342     		cmp	r3, r2
+ 2256 0e4e 29D0     		beq	.L294
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2257              		.loc 1 212 5 discriminator 163 view .LVU426
+ 2258 0e50 A2F56872 		sub	r2, r2, #928
+ 2259 0e54 9342     		cmp	r3, r2
+ 2260 0e56 27D0     		beq	.L295
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2261              		.loc 1 212 5 discriminator 165 view .LVU427
+ 2262 0e58 02F58062 		add	r2, r2, #1024
+ 2263 0e5c 9342     		cmp	r3, r2
+ 2264 0e5e 25D0     		beq	.L296
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2265              		.loc 1 212 5 discriminator 167 view .LVU428
+ 2266 0e60 A2F58962 		sub	r2, r2, #1096
+ 2267 0e64 9342     		cmp	r3, r2
+ 2268 0e66 23D0     		beq	.L297
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2269              		.loc 1 212 5 discriminator 169 view .LVU429
+ 2270 0e68 02F58062 		add	r2, r2, #1024
+ 2271 0e6c 9342     		cmp	r3, r2
+ 2272 0e6e 22D0     		beq	.L298
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2273              		.loc 1 212 5 discriminator 171 view .LVU430
+ 2274 0e70 A2F56872 		sub	r2, r2, #928
+ 2275 0e74 9342     		cmp	r3, r2
+ 2276 0e76 21D0     		beq	.L299
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2277              		.loc 1 212 5 discriminator 173 view .LVU431
+ 2278 0e78 02F58062 		add	r2, r2, #1024
+ 2279 0e7c 9342     		cmp	r3, r2
+ 2280 0e7e 02D0     		beq	.L324
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2281              		.loc 1 212 5 view .LVU432
+ 2282 0e80 4FF48003 		mov	r3, #4194304
+ 2283 0e84 03E0     		b	.L57
+ 2284              	.L324:
+ 2285 0e86 4FF48033 		mov	r3, #65536
+ 2286 0e8a 00E0     		b	.L57
+ 2287              	.L289:
+ 2288 0e8c 0123     		movs	r3, #1
+ 2289              	.L57:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2290              		.loc 1 212 5 discriminator 200 view .LVU433
+ 2291 0e8e 144A     		ldr	r2, .L333+12
+ 2292 0e90 9360     		str	r3, [r2, #8]
+ 2293 0e92 E1E6     		b	.L52
+ 2294              	.L290:
+ 212:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     
+ 2295              		.loc 1 212 5 view .LVU434
+ARM GAS  /tmp/ccNYL36S.s 			page 54
+
+
+ 2296 0e94 0123     		movs	r3, #1
+ 2297 0e96 FAE7     		b	.L57
+ 2298              	.L291:
+ 2299 0e98 0123     		movs	r3, #1
+ 2300 0e9a F8E7     		b	.L57
+ 2301              	.L292:
+ 2302 0e9c 0123     		movs	r3, #1
+ 2303 0e9e F6E7     		b	.L57
+ 2304              	.L293:
+ 2305 0ea0 4023     		movs	r3, #64
+ 2306 0ea2 F4E7     		b	.L57
+ 2307              	.L294:
+ 2308 0ea4 4023     		movs	r3, #64
+ 2309 0ea6 F2E7     		b	.L57
+ 2310              	.L295:
+ 2311 0ea8 4023     		movs	r3, #64
+ 2312 0eaa F0E7     		b	.L57
+ 2313              	.L296:
+ 2314 0eac 4023     		movs	r3, #64
+ 2315 0eae EEE7     		b	.L57
+ 2316              	.L297:
+ 2317 0eb0 4FF48033 		mov	r3, #65536
+ 2318 0eb4 EBE7     		b	.L57
+ 2319              	.L298:
+ 2320 0eb6 4FF48033 		mov	r3, #65536
+ 2321 0eba E8E7     		b	.L57
+ 2322              	.L299:
+ 2323 0ebc 4FF48033 		mov	r3, #65536
+ 2324 0ec0 E5E7     		b	.L57
+ 2325              	.L321:
+ 218:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 2326              		.loc 1 218 53 discriminator 1 view .LVU435
+ 2327 0ec2 A36C     		ldr	r3, [r4, #72]
+ 218:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****     {
+ 2328              		.loc 1 218 45 discriminator 1 view .LVU436
+ 2329 0ec4 002B     		cmp	r3, #0
+ 2330 0ec6 7FF4D5AE 		bne	.L58
+ 2331 0eca D8E6     		b	.L59
+ 2332              	.LVL41:
+ 2333              	.L60:
+ 188:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 2334              		.loc 1 188 3 view .LVU437
+ 2335 0ecc 0220     		movs	r0, #2
+ 2336              	.LVL42:
+ 188:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   
+ 2337              		.loc 1 188 3 view .LVU438
+ 2338 0ece FFF7ACB8 		b	.L16
+ 2339              	.L334:
+ 2340 0ed2 00BF     		.align	2
+ 2341              	.L333:
+ 2342 0ed4 B8600240 		.word	1073897656
+ 2343 0ed8 00640240 		.word	1073898496
+ 2344 0edc 58600240 		.word	1073897560
+ 2345 0ee0 00600240 		.word	1073897472
+ 2346 0ee4 10600240 		.word	1073897488
+ 2347              		.cfi_endproc
+ 2348              	.LFE139:
+ARM GAS  /tmp/ccNYL36S.s 			page 55
+
+
+ 2350              		.section	.text.HAL_DMAEx_ChangeMemory,"ax",%progbits
+ 2351              		.align	1
+ 2352              		.global	HAL_DMAEx_ChangeMemory
+ 2353              		.syntax unified
+ 2354              		.thumb
+ 2355              		.thumb_func
+ 2356              		.fpu fpv5-sp-d16
+ 2358              	HAL_DMAEx_ChangeMemory:
+ 2359              	.LVL43:
+ 2360              	.LFB140:
+ 252:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   if(memory == MEMORY0)
+ 2361              		.loc 1 252 1 is_stmt 1 view -0
+ 2362              		.cfi_startproc
+ 2363              		@ args = 0, pretend = 0, frame = 0
+ 2364              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2365              		@ link register save eliminated.
+ 253:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 2366              		.loc 1 253 3 view .LVU440
+ 253:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   {
+ 2367              		.loc 1 253 5 is_stmt 0 view .LVU441
+ 2368 0000 1AB9     		cbnz	r2, .L336
+ 256:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 2369              		.loc 1 256 5 is_stmt 1 view .LVU442
+ 256:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 2370              		.loc 1 256 9 is_stmt 0 view .LVU443
+ 2371 0002 0368     		ldr	r3, [r0]
+ 256:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 2372              		.loc 1 256 26 view .LVU444
+ 2373 0004 D960     		str	r1, [r3, #12]
+ 2374              	.L337:
+ 264:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** }
+ 2375              		.loc 1 264 3 is_stmt 1 view .LVU445
+ 265:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 2376              		.loc 1 265 1 is_stmt 0 view .LVU446
+ 2377 0006 0020     		movs	r0, #0
+ 2378              	.LVL44:
+ 265:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c **** 
+ 2379              		.loc 1 265 1 view .LVU447
+ 2380 0008 7047     		bx	lr
+ 2381              	.LVL45:
+ 2382              	.L336:
+ 261:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 2383              		.loc 1 261 5 is_stmt 1 view .LVU448
+ 261:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 2384              		.loc 1 261 9 is_stmt 0 view .LVU449
+ 2385 000a 0368     		ldr	r3, [r0]
+ 261:Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c ****   }
+ 2386              		.loc 1 261 26 view .LVU450
+ 2387 000c 1961     		str	r1, [r3, #16]
+ 2388 000e FAE7     		b	.L337
+ 2389              		.cfi_endproc
+ 2390              	.LFE140:
+ 2392              		.text
+ 2393              	.Letext0:
+ 2394              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+ 2395              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+ 2396              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+ARM GAS  /tmp/ccNYL36S.s 			page 56
+
+
+ 2397              		.file 5 "Drivers/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h"
+ 2398              		.file 6 "Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f746xx.h"
+ 2399              		.file 7 "/usr/arm-none-eabi/include/sys/lock.h"
+ 2400              		.file 8 "/usr/arm-none-eabi/include/sys/_types.h"
+ 2401              		.file 9 "/usr/lib/gcc/arm-none-eabi/8.3.0/include/stddef.h"
+ 2402              		.file 10 "/usr/arm-none-eabi/include/sys/reent.h"
+ 2403              		.file 11 "Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h"
+ 2404              		.file 12 "Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma.h"
+ 2405              		.file 13 "Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_dma_ex.h"
+ARM GAS  /tmp/ccNYL36S.s 			page 57
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32f7xx_hal_dma_ex.c
+     /tmp/ccNYL36S.s:18     .text.DMA_MultiBufferSetConfig:0000000000000000 $t
+     /tmp/ccNYL36S.s:25     .text.DMA_MultiBufferSetConfig:0000000000000000 DMA_MultiBufferSetConfig
+     /tmp/ccNYL36S.s:90     .text.HAL_DMAEx_MultiBufferStart:0000000000000000 $t
+     /tmp/ccNYL36S.s:97     .text.HAL_DMAEx_MultiBufferStart:0000000000000000 HAL_DMAEx_MultiBufferStart
+     /tmp/ccNYL36S.s:207    .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000000 $t
+     /tmp/ccNYL36S.s:214    .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000000 HAL_DMAEx_MultiBufferStart_IT
+     /tmp/ccNYL36S.s:752    .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000374 $d
+     /tmp/ccNYL36S.s:759    .text.HAL_DMAEx_MultiBufferStart_IT:000000000000038c $t
+     /tmp/ccNYL36S.s:1169   .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000684 $d
+     /tmp/ccNYL36S.s:1176   .text.HAL_DMAEx_MultiBufferStart_IT:000000000000069c $t
+     /tmp/ccNYL36S.s:1563   .text.HAL_DMAEx_MultiBufferStart_IT:000000000000096c $d
+     /tmp/ccNYL36S.s:1570   .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000984 $t
+     /tmp/ccNYL36S.s:2001   .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000c90 $d
+     /tmp/ccNYL36S.s:2009   .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000ca8 $t
+     /tmp/ccNYL36S.s:2342   .text.HAL_DMAEx_MultiBufferStart_IT:0000000000000ed4 $d
+     /tmp/ccNYL36S.s:2351   .text.HAL_DMAEx_ChangeMemory:0000000000000000 $t
+     /tmp/ccNYL36S.s:2358   .text.HAL_DMAEx_ChangeMemory:0000000000000000 HAL_DMAEx_ChangeMemory
+
+NO UNDEFINED SYMBOLS

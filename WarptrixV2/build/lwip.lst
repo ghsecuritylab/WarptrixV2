@@ -1,0 +1,400 @@
+ARM GAS  /tmp/ccE2OdLv.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"lwip.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.MX_LWIP_Init,"ax",%progbits
+  18              		.align	1
+  19              		.global	MX_LWIP_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv5-sp-d16
+  26              	MX_LWIP_Init:
+  27              	.LFB160:
+  28              		.file 1 "Src/lwip.c"
+   1:Src/lwip.c    **** /**
+   2:Src/lwip.c    ****  ******************************************************************************
+   3:Src/lwip.c    ****   * File Name          : LWIP.c
+   4:Src/lwip.c    ****   * Description        : This file provides initialization code for LWIP
+   5:Src/lwip.c    ****   *                      middleWare.
+   6:Src/lwip.c    ****   ******************************************************************************
+   7:Src/lwip.c    ****   * This notice applies to any and all portions of this file
+   8:Src/lwip.c    ****   * that are not between comment pairs USER CODE BEGIN and
+   9:Src/lwip.c    ****   * USER CODE END. Other portions of this file, whether 
+  10:Src/lwip.c    ****   * inserted by the user or by software development tools
+  11:Src/lwip.c    ****   * are owned by their respective copyright owners.
+  12:Src/lwip.c    ****   *
+  13:Src/lwip.c    ****   * Copyright (c) 2019 STMicroelectronics International N.V. 
+  14:Src/lwip.c    ****   * All rights reserved.
+  15:Src/lwip.c    ****   *
+  16:Src/lwip.c    ****   * Redistribution and use in source and binary forms, with or without 
+  17:Src/lwip.c    ****   * modification, are permitted, provided that the following conditions are met:
+  18:Src/lwip.c    ****   *
+  19:Src/lwip.c    ****   * 1. Redistribution of source code must retain the above copyright notice, 
+  20:Src/lwip.c    ****   *    this list of conditions and the following disclaimer.
+  21:Src/lwip.c    ****   * 2. Redistributions in binary form must reproduce the above copyright notice,
+  22:Src/lwip.c    ****   *    this list of conditions and the following disclaimer in the documentation
+  23:Src/lwip.c    ****   *    and/or other materials provided with the distribution.
+  24:Src/lwip.c    ****   * 3. Neither the name of STMicroelectronics nor the names of other 
+  25:Src/lwip.c    ****   *    contributors to this software may be used to endorse or promote products 
+  26:Src/lwip.c    ****   *    derived from this software without specific written permission.
+  27:Src/lwip.c    ****   * 4. This software, including modifications and/or derivative works of this 
+  28:Src/lwip.c    ****   *    software, must execute solely and exclusively on microcontroller or
+  29:Src/lwip.c    ****   *    microprocessor devices manufactured by or for STMicroelectronics.
+  30:Src/lwip.c    ****   * 5. Redistribution and use of this software other than as permitted under 
+ARM GAS  /tmp/ccE2OdLv.s 			page 2
+
+
+  31:Src/lwip.c    ****   *    this license is void and will automatically terminate your rights under 
+  32:Src/lwip.c    ****   *    this license. 
+  33:Src/lwip.c    ****   *
+  34:Src/lwip.c    ****   * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  35:Src/lwip.c    ****   * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  36:Src/lwip.c    ****   * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  37:Src/lwip.c    ****   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  38:Src/lwip.c    ****   * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  39:Src/lwip.c    ****   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  40:Src/lwip.c    ****   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  41:Src/lwip.c    ****   * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  42:Src/lwip.c    ****   * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  43:Src/lwip.c    ****   * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  44:Src/lwip.c    ****   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  45:Src/lwip.c    ****   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  46:Src/lwip.c    ****   *
+  47:Src/lwip.c    ****   ******************************************************************************
+  48:Src/lwip.c    ****   */
+  49:Src/lwip.c    ****   
+  50:Src/lwip.c    **** /* Includes ------------------------------------------------------------------*/
+  51:Src/lwip.c    **** #include "lwip.h"
+  52:Src/lwip.c    **** #include "lwip/init.h"
+  53:Src/lwip.c    **** #include "lwip/netif.h"
+  54:Src/lwip.c    **** #if defined ( __CC_ARM )  /* MDK ARM Compiler */
+  55:Src/lwip.c    **** #include "lwip/sio.h"
+  56:Src/lwip.c    **** #endif /* MDK ARM Compiler */
+  57:Src/lwip.c    **** 
+  58:Src/lwip.c    **** /* USER CODE BEGIN 0 */
+  59:Src/lwip.c    **** 
+  60:Src/lwip.c    **** 
+  61:Src/lwip.c    **** /* USER CODE END 0 */
+  62:Src/lwip.c    **** /* Private function prototypes -----------------------------------------------*/
+  63:Src/lwip.c    **** /* ETH Variables initialization ----------------------------------------------*/
+  64:Src/lwip.c    **** void _Error_Handler(char * file, int line);
+  65:Src/lwip.c    **** 
+  66:Src/lwip.c    **** /* DHCP Variables initialization ---------------------------------------------*/
+  67:Src/lwip.c    **** uint32_t DHCPfineTimer = 0;
+  68:Src/lwip.c    **** uint32_t DHCPcoarseTimer = 0;
+  69:Src/lwip.c    **** /* USER CODE BEGIN 1 */
+  70:Src/lwip.c    **** 
+  71:Src/lwip.c    **** /* USER CODE END 1 */
+  72:Src/lwip.c    **** 
+  73:Src/lwip.c    **** /* Variables Initialization */
+  74:Src/lwip.c    **** struct netif gnetif;
+  75:Src/lwip.c    **** ip4_addr_t ipaddr;
+  76:Src/lwip.c    **** ip4_addr_t netmask;
+  77:Src/lwip.c    **** ip4_addr_t gw;
+  78:Src/lwip.c    **** 
+  79:Src/lwip.c    **** /* USER CODE BEGIN 2 */
+  80:Src/lwip.c    **** /* 
+  81:Src/lwip.c    **** IP4_ADDR(&ipaddr,10,0,0,5);
+  82:Src/lwip.c    **** IP4_ADDR(&netmask,255,255,255,0);
+  83:Src/lwip.c    **** */
+  84:Src/lwip.c    **** /* USER CODE END 2 */
+  85:Src/lwip.c    **** 
+  86:Src/lwip.c    **** /**
+  87:Src/lwip.c    ****   * LwIP initialization function
+ARM GAS  /tmp/ccE2OdLv.s 			page 3
+
+
+  88:Src/lwip.c    ****   */
+  89:Src/lwip.c    **** void MX_LWIP_Init(void)
+  90:Src/lwip.c    **** {
+  29              		.loc 1 90 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 12
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
+  38              		.cfi_offset 14, -4
+  39 0002 85B0     		sub	sp, sp, #20
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 32
+  91:Src/lwip.c    ****   /* Initilialize the LwIP stack without RTOS */
+  92:Src/lwip.c    ****   lwip_init();
+  42              		.loc 1 92 3 view .LVU1
+  43 0004 FFF7FEFF 		bl	lwip_init
+  44              	.LVL0:
+  93:Src/lwip.c    **** 
+  94:Src/lwip.c    ****   /* IP addresses initialization with DHCP (IPv4) */
+  95:Src/lwip.c    ****   ipaddr.addr = 0;
+  45              		.loc 1 95 3 view .LVU2
+  46              		.loc 1 95 15 is_stmt 0 view .LVU3
+  47 0008 1149     		ldr	r1, .L5
+  48 000a 0020     		movs	r0, #0
+  49 000c 0860     		str	r0, [r1]
+  96:Src/lwip.c    ****   netmask.addr = 0;
+  50              		.loc 1 96 3 is_stmt 1 view .LVU4
+  51              		.loc 1 96 16 is_stmt 0 view .LVU5
+  52 000e 114A     		ldr	r2, .L5+4
+  53 0010 1060     		str	r0, [r2]
+  97:Src/lwip.c    ****   gw.addr = 0;
+  54              		.loc 1 97 3 is_stmt 1 view .LVU6
+  55              		.loc 1 97 11 is_stmt 0 view .LVU7
+  56 0012 114B     		ldr	r3, .L5+8
+  57 0014 1860     		str	r0, [r3]
+  98:Src/lwip.c    **** 
+  99:Src/lwip.c    ****   /* add the network interface (IPv4/IPv6) without RTOS */
+ 100:Src/lwip.c    ****   netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &ethernet_input);
+  58              		.loc 1 100 3 is_stmt 1 view .LVU8
+  59 0016 114C     		ldr	r4, .L5+12
+  60 0018 114D     		ldr	r5, .L5+16
+  61 001a 0295     		str	r5, [sp, #8]
+  62 001c 114D     		ldr	r5, .L5+20
+  63 001e 0195     		str	r5, [sp, #4]
+  64 0020 0090     		str	r0, [sp]
+  65 0022 2046     		mov	r0, r4
+  66 0024 FFF7FEFF 		bl	netif_add
+  67              	.LVL1:
+ 101:Src/lwip.c    **** 
+ 102:Src/lwip.c    ****   /* Registers the default network interface */
+ 103:Src/lwip.c    ****   netif_set_default(&gnetif);
+  68              		.loc 1 103 3 view .LVU9
+  69 0028 2046     		mov	r0, r4
+ARM GAS  /tmp/ccE2OdLv.s 			page 4
+
+
+  70 002a FFF7FEFF 		bl	netif_set_default
+  71              	.LVL2:
+ 104:Src/lwip.c    **** 
+ 105:Src/lwip.c    ****   if (netif_is_link_up(&gnetif))
+  72              		.loc 1 105 3 view .LVU10
+  73              		.loc 1 105 7 is_stmt 0 view .LVU11
+  74 002e 94F82F30 		ldrb	r3, [r4, #47]	@ zero_extendqisi2
+  75              		.loc 1 105 6 view .LVU12
+  76 0032 13F0040F 		tst	r3, #4
+  77 0036 07D0     		beq	.L2
+ 106:Src/lwip.c    ****   {
+ 107:Src/lwip.c    ****     /* When the netif is fully configured this function must be called */
+ 108:Src/lwip.c    ****     netif_set_up(&gnetif);
+  78              		.loc 1 108 5 is_stmt 1 view .LVU13
+  79 0038 2046     		mov	r0, r4
+  80 003a FFF7FEFF 		bl	netif_set_up
+  81              	.LVL3:
+  82              	.L3:
+ 109:Src/lwip.c    ****   }
+ 110:Src/lwip.c    ****   else
+ 111:Src/lwip.c    ****   {
+ 112:Src/lwip.c    ****     /* When the netif link is down this function must be called */
+ 113:Src/lwip.c    ****     netif_set_down(&gnetif);
+ 114:Src/lwip.c    ****   }
+ 115:Src/lwip.c    **** 
+ 116:Src/lwip.c    ****   /* Start DHCP negotiation for a network interface (IPv4) */
+ 117:Src/lwip.c    ****   dhcp_start(&gnetif);
+  83              		.loc 1 117 3 view .LVU14
+  84 003e 0748     		ldr	r0, .L5+12
+  85 0040 FFF7FEFF 		bl	dhcp_start
+  86              	.LVL4:
+ 118:Src/lwip.c    **** 
+ 119:Src/lwip.c    **** /* USER CODE BEGIN 3 */
+ 120:Src/lwip.c    **** 
+ 121:Src/lwip.c    **** 
+ 122:Src/lwip.c    **** /* USER CODE END 3 */
+ 123:Src/lwip.c    **** }
+  87              		.loc 1 123 1 is_stmt 0 view .LVU15
+  88 0044 05B0     		add	sp, sp, #20
+  89              	.LCFI2:
+  90              		.cfi_remember_state
+  91              		.cfi_def_cfa_offset 12
+  92              		@ sp needed
+  93 0046 30BD     		pop	{r4, r5, pc}
+  94              	.L2:
+  95              	.LCFI3:
+  96              		.cfi_restore_state
+ 113:Src/lwip.c    ****   }
+  97              		.loc 1 113 5 is_stmt 1 view .LVU16
+  98 0048 0448     		ldr	r0, .L5+12
+  99 004a FFF7FEFF 		bl	netif_set_down
+ 100              	.LVL5:
+ 101 004e F6E7     		b	.L3
+ 102              	.L6:
+ 103              		.align	2
+ 104              	.L5:
+ 105 0050 00000000 		.word	ipaddr
+ARM GAS  /tmp/ccE2OdLv.s 			page 5
+
+
+ 106 0054 00000000 		.word	netmask
+ 107 0058 00000000 		.word	gw
+ 108 005c 00000000 		.word	gnetif
+ 109 0060 00000000 		.word	ethernet_input
+ 110 0064 00000000 		.word	ethernetif_init
+ 111              		.cfi_endproc
+ 112              	.LFE160:
+ 114              		.section	.text.MX_LWIP_Process,"ax",%progbits
+ 115              		.align	1
+ 116              		.global	MX_LWIP_Process
+ 117              		.syntax unified
+ 118              		.thumb
+ 119              		.thumb_func
+ 120              		.fpu fpv5-sp-d16
+ 122              	MX_LWIP_Process:
+ 123              	.LFB161:
+ 124:Src/lwip.c    **** 
+ 125:Src/lwip.c    **** #ifdef USE_OBSOLETE_USER_CODE_SECTION_4
+ 126:Src/lwip.c    **** /* Kept to help code migration. (See new 4_1, 4_2... sections) */
+ 127:Src/lwip.c    **** /* Avoid to use this user section which will become obsolete. */
+ 128:Src/lwip.c    **** /* USER CODE BEGIN 4 */
+ 129:Src/lwip.c    **** /* USER CODE END 4 */
+ 130:Src/lwip.c    **** #endif
+ 131:Src/lwip.c    **** 
+ 132:Src/lwip.c    **** /**
+ 133:Src/lwip.c    ****  * ----------------------------------------------------------------------
+ 134:Src/lwip.c    ****  * Function given to help user to continue LwIP Initialization
+ 135:Src/lwip.c    ****  * Up to user to complete or change this function ...
+ 136:Src/lwip.c    ****  * Up to user to call this function in main.c in while (1) of main(void) 
+ 137:Src/lwip.c    ****  *-----------------------------------------------------------------------
+ 138:Src/lwip.c    ****  * Read a received packet from the Ethernet buffers 
+ 139:Src/lwip.c    ****  * Send it to the lwIP stack for handling
+ 140:Src/lwip.c    ****  * Handle timeouts if LWIP_TIMERS is set and without RTOS
+ 141:Src/lwip.c    ****  * Handle the llink status if LWIP_NETIF_LINK_CALLBACK is set and without RTOS 
+ 142:Src/lwip.c    ****  */
+ 143:Src/lwip.c    **** void MX_LWIP_Process(void)
+ 144:Src/lwip.c    **** {
+ 124              		.loc 1 144 1 view -0
+ 125              		.cfi_startproc
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 128 0000 08B5     		push	{r3, lr}
+ 129              	.LCFI4:
+ 130              		.cfi_def_cfa_offset 8
+ 131              		.cfi_offset 3, -8
+ 132              		.cfi_offset 14, -4
+ 145:Src/lwip.c    **** /* USER CODE BEGIN 4_1 */
+ 146:Src/lwip.c    **** /* USER CODE END 4_1 */
+ 147:Src/lwip.c    ****   ethernetif_input(&gnetif);
+ 133              		.loc 1 147 3 view .LVU18
+ 134 0002 0348     		ldr	r0, .L9
+ 135 0004 FFF7FEFF 		bl	ethernetif_input
+ 136              	.LVL6:
+ 148:Src/lwip.c    ****   
+ 149:Src/lwip.c    **** /* USER CODE BEGIN 4_2 */
+ 150:Src/lwip.c    **** /* USER CODE END 4_2 */  
+ 151:Src/lwip.c    ****   /* Handle timeouts */
+ARM GAS  /tmp/ccE2OdLv.s 			page 6
+
+
+ 152:Src/lwip.c    ****   sys_check_timeouts();
+ 137              		.loc 1 152 3 view .LVU19
+ 138 0008 FFF7FEFF 		bl	sys_check_timeouts
+ 139              	.LVL7:
+ 153:Src/lwip.c    **** 
+ 154:Src/lwip.c    **** /* USER CODE BEGIN 4_3 */
+ 155:Src/lwip.c    **** /* USER CODE END 4_3 */
+ 156:Src/lwip.c    **** }
+ 140              		.loc 1 156 1 is_stmt 0 view .LVU20
+ 141 000c 08BD     		pop	{r3, pc}
+ 142              	.L10:
+ 143 000e 00BF     		.align	2
+ 144              	.L9:
+ 145 0010 00000000 		.word	gnetif
+ 146              		.cfi_endproc
+ 147              	.LFE161:
+ 149              		.comm	gw,4,4
+ 150              		.comm	netmask,4,4
+ 151              		.comm	ipaddr,4,4
+ 152              		.comm	gnetif,52,4
+ 153              		.global	DHCPcoarseTimer
+ 154              		.global	DHCPfineTimer
+ 155              		.section	.bss.DHCPcoarseTimer,"aw",%nobits
+ 156              		.align	2
+ 159              	DHCPcoarseTimer:
+ 160 0000 00000000 		.space	4
+ 161              		.section	.bss.DHCPfineTimer,"aw",%nobits
+ 162              		.align	2
+ 165              	DHCPfineTimer:
+ 166 0000 00000000 		.space	4
+ 167              		.text
+ 168              	.Letext0:
+ 169              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+ 170              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+ 171              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+ 172              		.file 5 "Drivers/CMSIS/Device/ST/STM32F7xx/Include/system_stm32f7xx.h"
+ 173              		.file 6 "Drivers/CMSIS/Device/ST/STM32F7xx/Include/stm32f746xx.h"
+ 174              		.file 7 "/usr/arm-none-eabi/include/sys/lock.h"
+ 175              		.file 8 "/usr/arm-none-eabi/include/sys/_types.h"
+ 176              		.file 9 "/usr/lib/gcc/arm-none-eabi/8.3.0/include/stddef.h"
+ 177              		.file 10 "/usr/arm-none-eabi/include/sys/reent.h"
+ 178              		.file 11 "Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_def.h"
+ 179              		.file 12 "Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_eth.h"
+ 180              		.file 13 "/usr/arm-none-eabi/include/stdlib.h"
+ 181              		.file 14 "/usr/arm-none-eabi/include/time.h"
+ 182              		.file 15 "Middlewares/Third_Party/LwIP/src/include/lwip/arch.h"
+ 183              		.file 16 "Middlewares/Third_Party/LwIP/src/include/lwip/memp.h"
+ 184              		.file 17 "Middlewares/Third_Party/LwIP/src/include/lwip/priv/memp_priv.h"
+ 185              		.file 18 "Middlewares/Third_Party/LwIP/src/include/lwip/err.h"
+ 186              		.file 19 "Middlewares/Third_Party/LwIP/src/include/lwip/pbuf.h"
+ 187              		.file 20 "Middlewares/Third_Party/LwIP/src/include/lwip/ip4_addr.h"
+ 188              		.file 21 "Middlewares/Third_Party/LwIP/src/include/lwip/ip_addr.h"
+ 189              		.file 22 "Middlewares/Third_Party/LwIP/src/include/lwip/netif.h"
+ 190              		.file 23 "Middlewares/Third_Party/LwIP/src/include/lwip/prot/ip4.h"
+ 191              		.file 24 "Middlewares/Third_Party/LwIP/src/include/lwip/prot/ethernet.h"
+ 192              		.file 25 "Middlewares/Third_Party/LwIP/src/include/netif/ethernet.h"
+ 193              		.file 26 "Middlewares/Third_Party/LwIP/src/include/lwip/ip.h"
+ARM GAS  /tmp/ccE2OdLv.s 			page 7
+
+
+ 194              		.file 27 "Middlewares/Third_Party/LwIP/src/include/lwip/udp.h"
+ 195              		.file 28 "Middlewares/Third_Party/LwIP/src/include/lwip/timeouts.h"
+ 196              		.file 29 "Inc/lwip.h"
+ 197              		.file 30 "Inc/ethernetif.h"
+ 198              		.file 31 "Middlewares/Third_Party/LwIP/src/include/lwip/init.h"
+ 199              		.file 32 "Middlewares/Third_Party/LwIP/src/include/lwip/dhcp.h"
+ARM GAS  /tmp/ccE2OdLv.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 lwip.c
+     /tmp/ccE2OdLv.s:18     .text.MX_LWIP_Init:0000000000000000 $t
+     /tmp/ccE2OdLv.s:26     .text.MX_LWIP_Init:0000000000000000 MX_LWIP_Init
+     /tmp/ccE2OdLv.s:105    .text.MX_LWIP_Init:0000000000000050 $d
+                            *COM*:0000000000000004 ipaddr
+                            *COM*:0000000000000004 netmask
+                            *COM*:0000000000000004 gw
+                            *COM*:0000000000000034 gnetif
+     /tmp/ccE2OdLv.s:115    .text.MX_LWIP_Process:0000000000000000 $t
+     /tmp/ccE2OdLv.s:122    .text.MX_LWIP_Process:0000000000000000 MX_LWIP_Process
+     /tmp/ccE2OdLv.s:145    .text.MX_LWIP_Process:0000000000000010 $d
+     /tmp/ccE2OdLv.s:159    .bss.DHCPcoarseTimer:0000000000000000 DHCPcoarseTimer
+     /tmp/ccE2OdLv.s:165    .bss.DHCPfineTimer:0000000000000000 DHCPfineTimer
+     /tmp/ccE2OdLv.s:156    .bss.DHCPcoarseTimer:0000000000000000 $d
+     /tmp/ccE2OdLv.s:162    .bss.DHCPfineTimer:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+lwip_init
+netif_add
+netif_set_default
+netif_set_up
+dhcp_start
+netif_set_down
+ethernet_input
+ethernetif_init
+ethernetif_input
+sys_check_timeouts
